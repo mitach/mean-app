@@ -8,6 +8,8 @@ const app = express();
 
 require('./config/express-config')(app);
 
+app.use(routes);
+
 initDatabase()
     .then(() => {
         app.listen(PORT, () => console.log(`The app is listenong on http://localhost:${PORT}`));
