@@ -13,8 +13,11 @@ export class PostService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  addPost(postData: object) {
+  getPosts() {
+    return this.http.get<{message: string, posts: any}>(this.baseURL + '/posts');
+  }
 
+  addPost(postData: object) {
     this.http.post(this.baseURL + '/posts', postData)
       .subscribe((response) => {
         this.router.navigate(['']);

@@ -1,1 +1,42 @@
-<p>post-list works!</p>
+<!-- TODO: Add mat-spinner while loading! -->
+
+<mat-card class="example-card" *ngFor="let post of posts">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{ post.title }}</mat-card-title>
+    <mat-card-subtitle>posted by: [author]</mat-card-subtitle>
+  </mat-card-header>
+
+  <img
+    mat-card-image
+    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+    alt="Photo of a Shiba Inu"
+  />
+
+  <mat-card-content>
+    <p>
+        {{post.content}}
+    </p>
+  </mat-card-content>
+
+  <mat-divider inset></mat-divider>
+
+  <mat-card-actions align="start">
+    <button mat-button>LIKE</button>
+    <!-- <button mat-icon-button color="accent" (click)="onClick()">
+        <mat-icon>favorite</mat-icon>
+      </button> -->
+    <button mat-button>UNLIKE</button>
+    <!-- <button mat-icon-button>
+        <mat-icon>comment</mat-icon>
+      </button> -->
+    <!-- <button mat-button>EDIT</button> -->
+    <button mat-icon-button color="primary">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <!-- <button mat-raised-button color='warn'>DELETE</button> -->
+    <button mat-icon-button color="warn">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
