@@ -1,5 +1,7 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-post-create',
@@ -10,7 +12,7 @@ export class PostCreateComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor() { }
+  constructor(public postService: PostService) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -26,7 +28,12 @@ export class PostCreateComponent implements OnInit {
       return;
     }
 
-    console.log(this.form.value);
+    const postData = {
+      title: this.form.value.title,
+      content: this.form.value.content
+    }
+    
+    this.postService.addPost(postData);
     
   }
 

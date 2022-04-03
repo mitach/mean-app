@@ -19,6 +19,7 @@ import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { PostCreateComponent } from './posts/post-create/post-create.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
@@ -39,7 +41,7 @@ import { PostCreateComponent } from './posts/post-create/post-create.component';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,10 +14,12 @@ router.get('', (req, res) => {
 });
 
 router.post('', (req, res) => {
+
     const post = new Post({
         title: req.body.title,
         content: req.body.content
     });
+
     post.save()
         .then(createdPost => {
             res.status(200).json({
