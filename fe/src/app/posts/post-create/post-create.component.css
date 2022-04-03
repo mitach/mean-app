@@ -1,0 +1,10 @@
+mat-form-field,
+textarea {  
+    width: 100%;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
