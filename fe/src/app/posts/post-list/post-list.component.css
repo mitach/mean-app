@@ -12,4 +12,16 @@
 .example-header-image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
-  }
+}
+
+.cardactions {
+    display: flex;
+}
+
+.actions {
+    display: inline-flex;
+}
+
+.settings {
+    margin-left: 176px;
+}
