@@ -38,6 +38,10 @@ export class PostService {
       });
   }
 
+  getPost(id: string) {
+    return this.http.get<{ _id: string, title: string, content: string }>(this.baseURL + '/posts/' + id);
+  }
+
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
   }
@@ -45,6 +49,17 @@ export class PostService {
   addPost(postData: object) {
     this.http.post(this.baseURL + '/posts', postData)
       .subscribe((response) => {
+        this.router.navigate(['']);
+      })
+  }
+
+  editPost(id: string, title: string, content: string) {
+    let postData: IPost | FormData;
+
+    postData = { id: id, title: title, content: content };
+
+    this.http.put(this.baseURL + '/posts/edit/' + id, postData)
+      .subscribe(response => {
         this.router.navigate(['']);
       })
   }

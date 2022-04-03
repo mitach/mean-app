@@ -22,6 +22,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PostEditComponent } from './posts/post-edit/post-edit.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     PostListComponent,
     PostCreateComponent,
+    PostEditComponent,
   ],
   imports: [
     BrowserModule,
