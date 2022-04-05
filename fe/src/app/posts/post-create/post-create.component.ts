@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../post.service';
 
+import { mimeType } from './mime-type.validator';
+
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
@@ -11,6 +13,8 @@ export class PostCreateComponent implements OnInit {
 
   form: FormGroup;
 
+  imagePreview: string;
+
   constructor(public postService: PostService) { }
 
   ngOnInit(): void {
@@ -18,7 +22,8 @@ export class PostCreateComponent implements OnInit {
       'title': new FormControl(null, {
         validators: [Validators.required, Validators.minLength(2)]
       }),
-      'content': new FormControl(null, {validators: [Validators.required]})
+      'content': new FormControl(null, {validators: [Validators.required]}),
+      'image': new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeType]})
     })
   }
 
@@ -29,11 +34,23 @@ export class PostCreateComponent implements OnInit {
 
     const postData = {
       title: this.form.value.title,
-      content: this.form.value.content
+      content: this.form.value.content,
+      imagePath: this.form.value.image
     }
     
     this.postService.addPost(postData);
     
+  }
+
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({ image: file});
+    this.form.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    }
+    reader.readAsDataURL(file);
   }
 
 }

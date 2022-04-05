@@ -47,16 +47,26 @@ export class PostService {
   }
 
   addPost(postData: object) {
+    console.log(postData);
+    
     this.http.post(this.baseURL + '/posts', postData)
       .subscribe((response) => {
         this.router.navigate(['']);
       })
   }
 
-  editPost(id: string, title: string, content: string) {
+  editPost(id: string, title: string, content: string, image: File | string) {
     let postData: IPost | FormData;
 
-    postData = { id: id, title: title, content: content };
+    if (typeof (image) === 'object') {
+      postData = new FormData();
+      postData.append('id', id)
+      postData.append('title', title);
+      postData.append('content', content);
+      postData.append('image', image, title)
+    } else {
+      postData = { id: id, title: title, content: content, imagePath: image };
+    }
 
     this.http.put(this.baseURL + '/posts/edit/' + id, postData)
       .subscribe(response => {

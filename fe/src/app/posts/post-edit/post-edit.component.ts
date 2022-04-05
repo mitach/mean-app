@@ -48,6 +48,6 @@ export class PostEditComponent implements OnInit {
       return;
     }
     
-    this.postService.editPost(this.postId, this.form.value.title, this.form.value.content);
+    this.postService.editPost(this.postId, this.form.value.title, this.form.value.content, this.form.value.image);
   }
 }
