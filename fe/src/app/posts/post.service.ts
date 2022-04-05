@@ -25,9 +25,10 @@ export class PostService {
         return {
           posts: postData.posts.map(post => {
             return {
+              id: post._id,
               title: post.title,
               content: post.content,
-              id: post._id,
+              imagePath: post.imagePath
             };
           })
         };
@@ -46,10 +47,13 @@ export class PostService {
     return this.postsUpdated.asObservable();
   }
 
-  addPost(postData: object) {
-    console.log(postData);
-    
-    this.http.post(this.baseURL + '/posts', postData)
+  addPost(title: string, content: string, image: File) {
+    const postData = new FormData();
+    postData.append('title', title);
+    postData.append('content', content);
+    postData.append('image', image, title);
+
+    this.http.post<{message: string, post: IPost}>(this.baseURL + '/posts', postData)
       .subscribe((response) => {
         this.router.navigate(['']);
       })

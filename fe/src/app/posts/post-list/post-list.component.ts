@@ -22,9 +22,9 @@ export class PostListComponent implements OnInit {
 
     this.postService.getPosts();
     this.postsSub = this.postService.getPostUpdateListener()
-      .subscribe((postData: {posts: IPost[]}) => {
-        this.posts = postData.posts
-      })
+      .subscribe((postData: { posts: IPost[] }) => {
+        this.posts = postData.posts;
+      });
   }
 
   onDelete(postId) {

@@ -14,13 +14,12 @@ const MIME_TYPE_MAP = {
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         const isValid = MIME_TYPE_MAP[file.mimetype];
-        let error = new Error('Invalid Mime Type');
+        let error = new Error('Invalid mime type');
 
         if (isValid) {
             error = null;
         }
-
-        cb(error, 'be/images')
+        cb(error, 'RestAPI/images');
     },
     filename: (req, file, cb) => {
         const name = file.originalname.toLocaleLowerCase().split(' ').join('-');
@@ -52,10 +51,8 @@ router.get('/:id', (req, res) => {
         })
 });
 
-router.post('', multer({storage: storage}).single('image'), (req, res) => {
+router.post('', multer({storage : storage}).single('image'), (req, res) => {
     const url = req.protocol + '://' + req.get('host');
-    console.log(url);
-    console.log(req.file);
 
     const post = new Post({
         title: req.body.title,
