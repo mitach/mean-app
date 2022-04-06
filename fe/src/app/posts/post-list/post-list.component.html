@@ -26,8 +26,12 @@
       <div>
         <button mat-button>LIKE</button>
 
-        <button mat-button>UNLIKE</button>
+        <button mat-button>DISLIKE</button>
       </div>
+
+      <!-- <div>
+        <p>You already voted!</p>
+      </div> -->
 
       <div class="settings">
         <button mat-icon-button color="primary" [routerLink]="['/edit', post.id]">
@@ -39,7 +43,13 @@
         </button>
       </div>
     </div>
+
   </mat-card-actions>
+
+  <!-- <mat-divider inset></mat-divider> -->
+
+  <mat-card-subtitle>Likes: 12 | Dislikes: 2</mat-card-subtitle>
+
 </mat-card>
 
 <mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="posts.length > 0"></mat-paginator>

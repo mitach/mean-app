@@ -33,8 +33,6 @@ router.get('', (req, res) => {
     const currentPage = Number(req.query.page);
     const postQuery = Post.find();
 
-    console.log('>>>', pageSize, currentPage);
-
     let postsReceived;
 
     if (pageSize && currentPage) {

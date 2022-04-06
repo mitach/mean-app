@@ -50,13 +50,16 @@ export class PostListComponent implements OnInit, OnDestroy {
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
 
-    console.log(pageData);
-    
-
     this.currentPage = pageData.pageIndex + 1;
     this.postsPerPage = pageData.pageSize;
 
     this.postService.getPosts(this.postsPerPage, this.currentPage);
+    
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 
   ngOnDestroy(): void {
