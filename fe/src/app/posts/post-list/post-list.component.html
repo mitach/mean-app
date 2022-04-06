@@ -42,5 +42,6 @@
   </mat-card-actions>
 </mat-card>
 
+<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="posts.length > 0"></mat-paginator>
+
 <p class="info-text" *ngIf="posts.length <= 0 && !isLoading">There are no posts!</p>
-<!-- TODO: add logic if there are no posts in the array. For e.g. <p>No posts added yet !</p> -->

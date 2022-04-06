@@ -32,7 +32,7 @@ import { PostEditComponent } from './posts/post-edit/post-edit.component';
     PostListComponent,
     PostCreateComponent,
     PostEditComponent,
-    
+
   ],
   imports: [
     BrowserModule,

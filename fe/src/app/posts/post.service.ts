@@ -13,14 +13,16 @@ import { IPost } from './post.model';
 export class PostService {
 
   posts: IPost[] = [];
-  private postsUpdated = new Subject<{ posts: IPost[] }>();
+  private postsUpdated = new Subject<{ posts: IPost[], postCount: number }>();
 
   readonly baseURL = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getPosts() {
-    this.http.get<{ message: string, posts: any }>(this.baseURL + '/posts')
+  getPosts(postsPerPage: number, currentPage: number) {
+    const queryParameters = `?pagesize=${postsPerPage}&page=${currentPage}`;
+
+    this.http.get<{ message: string, posts: any, maxPosts: number }>(this.baseURL + '/posts' + queryParameters)
       .pipe(map((postData) => {
         return {
           posts: postData.posts.map(post => {
@@ -30,12 +32,13 @@ export class PostService {
               content: post.content,
               imagePath: post.imagePath
             };
-          })
+          }),
+          maxPosts: postData.maxPosts
         };
       }))
       .subscribe((transformedData) => {
         this.posts = transformedData.posts
-        this.postsUpdated.next({ posts: [...this.posts] });
+        this.postsUpdated.next({ posts: [...this.posts], postCount: transformedData.maxPosts });
       });
   }
 
@@ -53,7 +56,7 @@ export class PostService {
     postData.append('content', content);
     postData.append('image', image, title);
 
-    this.http.post<{message: string, post: IPost}>(this.baseURL + '/posts', postData)
+    this.http.post<{ message: string, post: IPost }>(this.baseURL + '/posts', postData)
       .subscribe((response) => {
         this.router.navigate(['']);
       })
