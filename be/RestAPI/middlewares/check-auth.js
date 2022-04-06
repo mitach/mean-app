@@ -8,8 +8,6 @@ module.exports = (req, res, next) => {
 
         const decodedToken = jwt.verify(token, JWT_SECRET_KEY);
 
-        console.log('middleware>>>', decodedToken);
-
         req.userData = { name: decodedToken.name, email: decodedToken.email, userId: decodedToken.userId};
 
         next();

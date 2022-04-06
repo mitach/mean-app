@@ -66,6 +66,26 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
+  // TODO: Delete
+  // autoAuthUser() {
+  //   const authInformation = this.getAuthData();
+
+  //   if (!authInformation) {
+  //     return;
+  //   }
+
+  //   const now = new Date();
+  //   const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
+
+  //   if (expiresIn > 0) {
+  //     this.token = authInformation.token;
+  //     this.isAuthenticated = true;
+  //     this.userId = authInformation.userId;
+  //     this.setAuthTimer(expiresIn / 1000);
+  //     this.authStatusListener.next(true);
+  //   }
+  // }
+
   getToken() {
     return this.token;
   }
@@ -75,6 +95,24 @@ export class AuthService {
   }
 
   getIsAuth() {
+    const token = localStorage.getItem('token');
+    const expirationDate = new Date(localStorage.getItem('expiration'));
+    const userId = localStorage.getItem('userId');
+
+    if (!token || !expirationDate) {
+      return null;
+    }
+
+    const now = new Date();
+    const expiresIn = expirationDate.getTime() - now.getTime();
+
+    if (expiresIn > 0) {
+      this.token = token;
+      this.isAuthenticated = true;
+      this.userId = userId;
+      this.setAuthTimer(expiresIn / 1000);
+      this.authStatusListener.next(true);
+    }
     return this.isAuthenticated;
   }
 
@@ -99,4 +137,21 @@ export class AuthService {
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
   }
+
+  // TODO: Delete
+  // private getAuthData() {
+  //   const token = localStorage.getItem('token');
+  //   const expirationDate = localStorage.getItem('expiration');
+  //   const userId = localStorage.getItem('userId');
+
+  //   if (!token || !expirationDate) {
+  //     return null;
+  //   }
+
+  //   return {
+  //     token: token,
+  //     expirationDate: new Date(expirationDate),
+  //     userId: userId,
+  //   }
+  // }
 }
