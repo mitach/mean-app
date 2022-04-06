@@ -73,7 +73,7 @@ export class PostService {
       postData.append('content', content);
       postData.append('image', image, title)
     } else {
-      postData = { id: id, title: title, content: content, imagePath: image };
+      postData = { id: id, title: title, content: content, imagePath: image, creator: null };
     }
 
     this.http.put(this.baseURL + '/posts/edit/' + id, postData)

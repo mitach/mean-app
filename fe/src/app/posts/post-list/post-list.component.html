@@ -19,9 +19,9 @@
     </p>
   </mat-card-content>
 
-  <mat-divider inset></mat-divider>
+  <mat-divider inset *ngIf="userIsAuthenticated"></mat-divider>
 
-  <mat-card-actions class="cardactions" align="start">
+  <mat-card-actions class="cardactions" *ngIf="userIsAuthenticated" align="start">
     <div class="actions">
       <div>
         <button mat-button>LIKE</button>
@@ -33,7 +33,7 @@
         <p>You already voted!</p>
       </div> -->
 
-      <div class="settings">
+      <div class="settings" *ngIf="userId == post.creator">
         <button mat-icon-button color="primary" [routerLink]="['/edit', post.id]">
           <mat-icon>edit</mat-icon>
         </button>
