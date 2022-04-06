@@ -25,6 +25,9 @@ export class AuthService {
 
     this.http.post(this.baseURL + '/signup', authData)
       .subscribe(response => {
+        
+        this.login(email, password);
+
         this.router.navigate(['/']);
       });
   }
@@ -47,7 +50,6 @@ export class AuthService {
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           this.saveAuthData(token, expirationDate, this.userId);
-          console.log(expirationDate);
 
           this.router.navigate(['/']);
         }
@@ -64,9 +66,15 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  private setAuthTimer(duration: number) {
-    console.log('setting timer: ' + duration);
+  getIsAuth() {
+    return this.isAuthenticated;
+  }
 
+  getAuthStatusListener() {
+    return this.authStatusListener.asObservable();
+  }
+
+  private setAuthTimer(duration: number) {
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
