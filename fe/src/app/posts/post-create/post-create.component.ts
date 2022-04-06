@@ -43,8 +43,6 @@ export class PostCreateComponent implements OnInit {
 
     console.log(file);
     console.log(this.form);
-    
-    
 
     const reader = new FileReader();
 

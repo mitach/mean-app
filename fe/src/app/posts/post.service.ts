@@ -40,7 +40,7 @@ export class PostService {
   }
 
   getPost(id: string) {
-    return this.http.get<{ _id: string, title: string, content: string }>(this.baseURL + '/posts/' + id);
+    return this.http.get<{ _id: string, title: string, content: string, imagePath: string }>(this.baseURL + '/posts/' + id);
   }
 
   getPostUpdateListener() {

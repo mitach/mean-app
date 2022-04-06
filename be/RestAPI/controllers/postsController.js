@@ -69,11 +69,19 @@ router.post('', multer({storage : storage}).single('image'), (req, res) => {
         });
 });
 
-router.put('/edit/:id', (req, res) => {
+router.put('/edit/:id', multer({ storage: storage }).single('image'), (req, res) => {
+    let iamgePath = req.body.imagePath;
+
+    if (req.file) {
+        const url = req.protocol + '://' + req.get('host');
+        imagePath = url + '/images/' + req.file.filename
+    }
+
     const post = new Post({
         _id: req.body.id,
         title: req.body.title,
-        content: req.body.content
+        content: req.body.content,
+        imagePath: imagePath,
     });
 
     Post.updateOne({ _id: req.params.id }, post)
