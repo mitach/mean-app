@@ -25,7 +25,7 @@ export class AuthService {
 
     this.http.post(this.baseURL + '/signup', authData)
       .subscribe(response => {
-        
+
         this.login(email, password);
 
         this.router.navigate(['/']);
@@ -64,6 +64,14 @@ export class AuthService {
     this.clearAuthData();
     this.userId = null;
     this.router.navigate(['/']);
+  }
+
+  getToken() {
+    return this.token;
+  }
+
+  getUserId() {
+    return this.userId;
   }
 
   getIsAuth() {

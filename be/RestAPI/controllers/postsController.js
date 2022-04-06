@@ -4,6 +4,7 @@ const multer = require('multer');
 const router = express.Router();
 
 const Post = require('../models/Post');
+const checkAuth = require('../middlewares/check-auth');
 
 const MIME_TYPE_MAP = {
     'image/png': 'png',
@@ -68,13 +69,14 @@ router.get('/:id', (req, res) => {
         })
 });
 
-router.post('', multer({ storage: storage }).single('image'), (req, res) => {
+router.post('', checkAuth, multer({ storage: storage }).single('image'), (req, res) => {
     const url = req.protocol + '://' + req.get('host');
 
     const post = new Post({
         title: req.body.title,
         content: req.body.content,
-        imagePath: url + '/images/' + req.file.filename
+        imagePath: url + '/images/' + req.file.filename,
+        creator: req.userData.userId
     });
 
     post.save()
@@ -86,7 +88,7 @@ router.post('', multer({ storage: storage }).single('image'), (req, res) => {
         });
 });
 
-router.put('/edit/:id', multer({ storage: storage }).single('image'), (req, res) => {
+router.put('/edit/:id', checkAuth, multer({ storage: storage }).single('image'), (req, res) => {
     let imagePath = req.body.imagePath;
 
     if (req.file) {
@@ -99,9 +101,10 @@ router.put('/edit/:id', multer({ storage: storage }).single('image'), (req, res)
         title: req.body.title,
         content: req.body.content,
         imagePath: imagePath,
+        creator: req.userData.userId
     });
 
-    Post.updateOne({ _id: req.params.id }, post)
+    Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
         .then(result => {
             if (result.modifiedCount > 0) {
                 res.status(200).json({
@@ -115,8 +118,8 @@ router.put('/edit/:id', multer({ storage: storage }).single('image'), (req, res)
         })
 });
 
-router.delete('/:id', (req, res) => {
-    Post.deleteOne({ _id: req.params.id })
+router.delete('/:id', checkAuth, (req, res) => {
+    Post.deleteOne({ _id: req.params.id, creator: req.userData.userId })
         .then(result => {
             if (result.deletedCount > 0) {
                 res.status(200).json({
@@ -127,7 +130,7 @@ router.delete('/:id', (req, res) => {
                     message: 'Not Authorized!'
                 });
             }
-        })
-})
+        });
+});
 
 module.exports = router;
