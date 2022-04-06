@@ -8,6 +8,26 @@ const { SALT_ROUNDS, JWT_SECRET_KEY } = require('../constants');
 
 const router = express.Router();
 
+router.get('', (req, res) => {
+    User.find()
+        .then(users => {
+            res.status(200).json({
+                message: 'Users fetched successfully!',
+                users: users
+            });
+        });
+});
+
+router.get('/:userId', (req, res) => {
+    User.findById(req.params.userId)
+        .then(user => {
+            res.status(200).json({
+                message: 'User fetched successfully!',
+                user: user
+            });
+        });
+});
+
 router.post('/signup', (req, res) => {
     bcrypt.hash(req.body.password, SALT_ROUNDS)
         .then(hash => {
@@ -43,7 +63,7 @@ router.post('/login', (req, res) => {
             }
 
             userReceived = user;
-            
+
             return bcrypt.compare(req.body.password, user.password);
         })
         .then(result => {

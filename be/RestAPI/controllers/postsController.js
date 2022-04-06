@@ -5,6 +5,7 @@ const router = express.Router();
 
 const Post = require('../models/Post');
 const checkAuth = require('../middlewares/check-auth');
+const User = require('../models/User');
 
 const MIME_TYPE_MAP = {
     'image/png': 'png',
@@ -69,14 +70,17 @@ router.get('/:id', (req, res) => {
         })
 });
 
-router.post('', checkAuth, multer({ storage: storage }).single('image'), (req, res) => {
+router.post('', checkAuth, multer({ storage: storage }).single('image'), async (req, res) => {
     const url = req.protocol + '://' + req.get('host');
+
+    let creator = await User.findById(req.userData.userId);
 
     const post = new Post({
         title: req.body.title,
         content: req.body.content,
         imagePath: url + '/images/' + req.file.filename,
-        creator: req.userData.userId
+        creator: req.userData.userId,
+        creatorName: creator.name
     });
 
     post.save()

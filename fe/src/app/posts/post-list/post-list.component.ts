@@ -20,6 +20,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSizeOptions = [2, 5, 10, 20];
 
+  creatorName: string;
   userId: string;
   userIsAuthenticated: boolean = false;
   private authStatusSub: Subscription;

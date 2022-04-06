@@ -16,7 +16,7 @@ export class AuthService {
   private userId: string;
   private isAuthenticated = false;
 
-  readonly baseURL = 'http://localhost:3000/api/auth';
+  readonly baseURL = 'http://localhost:3000/api/users';
 
   constructor(private http: HttpClient, private router: Router) { }
 

@@ -5,6 +5,6 @@ const postsController = require('./controllers/postsController');
 const authController = require('./controllers/authController');
 
 router.use('/api/posts', postsController);
-router.use('/api/auth', authController)
+router.use('/api/users', authController)
 
 module.exports = router;

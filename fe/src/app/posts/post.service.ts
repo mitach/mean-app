@@ -31,7 +31,8 @@ export class PostService {
               title: post.title,
               content: post.content,
               imagePath: post.imagePath,
-              creator: post.creator
+              creator: post.creator,
+              creatorName: post.creatorName
             };
           }),
           maxPosts: postData.maxPosts
@@ -46,6 +47,8 @@ export class PostService {
   getPost(id: string) {
     return this.http.get<{ _id: string, title: string, content: string, imagePath: string }>(this.baseURL + '/posts/' + id);
   }
+
+  
 
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
@@ -73,7 +76,7 @@ export class PostService {
       postData.append('content', content);
       postData.append('image', image, title)
     } else {
-      postData = { id: id, title: title, content: content, imagePath: image, creator: null };
+      postData = { id: id, title: title, content: content, imagePath: image, creator: null, creatorName: null };
     }
 
     this.http.put(this.baseURL + '/posts/edit/' + id, postData)
