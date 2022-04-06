@@ -21,7 +21,7 @@ app.use(routes);
 
 initDatabase()
     .then(() => {
-        app.listen(PORT, () => console.log(`The app is listenong on http://localhost:${PORT}`));
+        app.listen(PORT, () => console.log(`The app is listening on http://localhost:${PORT}`));
     })
     .catch(err => {
         console.log('Cannot connect to database:', err);

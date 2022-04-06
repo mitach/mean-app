@@ -22,6 +22,8 @@ import { PostListComponent } from './posts/post-list/post-list.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PostEditComponent } from './posts/post-edit/post-edit.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { PostEditComponent } from './posts/post-edit/post-edit.component';
     PostListComponent,
     PostCreateComponent,
     PostEditComponent,
+    LoginComponent,
+    SignupComponent,
 
   ],
   imports: [
