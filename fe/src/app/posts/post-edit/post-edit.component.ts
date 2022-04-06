@@ -43,6 +43,7 @@ export class PostEditComponent implements OnInit {
             content: postData.content,
             imagePath: postData.imagePath
           };
+
           this.form.setValue({
             'title': this.post.title,
             'content': this.post.content,

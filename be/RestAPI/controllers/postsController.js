@@ -70,7 +70,7 @@ router.post('', multer({storage : storage}).single('image'), (req, res) => {
 });
 
 router.put('/edit/:id', multer({ storage: storage }).single('image'), (req, res) => {
-    let iamgePath = req.body.imagePath;
+    let imagePath = req.body.imagePath;
 
     if (req.file) {
         const url = req.protocol + '://' + req.get('host');
