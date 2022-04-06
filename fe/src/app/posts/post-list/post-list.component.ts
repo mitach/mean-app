@@ -11,6 +11,7 @@ import { PostService } from '../post.service';
 export class PostListComponent implements OnInit {
 
   posts: IPost[] = [];
+  isLoading: boolean = false;
 
   private postsSub: Subscription
 
@@ -19,10 +20,13 @@ export class PostListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
 
     this.postService.getPosts();
     this.postsSub = this.postService.getPostUpdateListener()
       .subscribe((postData: { posts: IPost[] }) => {
+        this.isLoading = false;
+        
         this.posts = postData.posts;
       });
   }

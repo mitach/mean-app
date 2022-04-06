@@ -7,11 +7,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,6 +32,7 @@ import { PostEditComponent } from './posts/post-edit/post-edit.component';
     PostListComponent,
     PostCreateComponent,
     PostEditComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -47,7 +48,8 @@ import { PostEditComponent } from './posts/post-edit/post-edit.component';
     MatInputModule,
     MatPaginatorModule,
     MatDividerModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
