@@ -70,6 +70,15 @@ router.get('/:id', (req, res) => {
         })
 });
 
+router.put('/like/:postId', async (req, res) => {
+
+    await Post.findByIdAndUpdate(
+        req.params.postId,
+        { $push: { usersLiked: req.body.userId } },
+        { runValidators: true }
+    );
+})
+
 router.post('', checkAuth, multer({ storage: storage }).single('image'), async (req, res) => {
     const url = req.protocol + '://' + req.get('host');
 

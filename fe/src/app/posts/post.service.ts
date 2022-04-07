@@ -33,7 +33,8 @@ export class PostService {
               imagePath: post.imagePath,
               creator: post.creator,
               creatorName: post.creatorName,
-              creatorAvatar: post.creatorAvatar
+              creatorAvatar: post.creatorAvatar,
+              usersLiked: post.usersLiked
             };
           }),
           maxPosts: postData.maxPosts
@@ -49,7 +50,7 @@ export class PostService {
     return this.http.get<{ _id: string, title: string, content: string, imagePath: string }>(this.baseURL + '/posts/' + id);
   }
 
-  
+
 
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
@@ -77,7 +78,7 @@ export class PostService {
       postData.append('content', content);
       postData.append('image', image, title)
     } else {
-      postData = { id: id, title: title, content: content, imagePath: image, creator: null, creatorName: null, creatorAvatar: null };
+      postData = { id: id, title: title, content: content, imagePath: image, creator: null, creatorName: null, creatorAvatar: null, usersLiked: {} };
     }
 
     this.http.put(this.baseURL + '/posts/edit/' + id, postData)
@@ -88,5 +89,10 @@ export class PostService {
 
   deletePost(postId: string) {
     return this.http.delete(this.baseURL + '/posts/' + postId);
+  }
+
+  likePost(postId, userId) {
+    this.http.put(this.baseURL + '/posts/like/' + postId, {userId}).subscribe();
+      
   }
 }

@@ -42,6 +42,8 @@ export class PostListComponent implements OnInit, OnDestroy {
 
         this.totalPosts = postData.postCount;
         this.posts = postData.posts;
+
+        console.log(this.posts)
       });
 
     this.userIsAuthenticated = this.authService.getIsAuth();
@@ -76,6 +78,10 @@ export class PostListComponent implements OnInit, OnDestroy {
       left: 0,
       behavior: 'smooth'
     });
+  }
+
+  onLiked(postId) {
+    this.postService.likePost(postId, this.userId)
   }
 
   ngOnDestroy(): void {

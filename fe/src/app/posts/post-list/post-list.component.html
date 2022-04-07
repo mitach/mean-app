@@ -23,13 +23,13 @@
 
   <mat-card-actions class="cardactions" *ngIf="userIsAuthenticated" align="start">
     <div class="actions">
-      <div>
-        <button mat-button>LIKE</button>
+      <div *ngIf="userId != post.creator">
+        <button mat-button (click)="onLiked(post.id)">LIKE</button>
 
         <button mat-button>DISLIKE</button>
       </div>
 
-      <!-- <div>
+      <!-- <div *ngIf="userId == post.creator">
         <p>You already voted!</p>
       </div> -->
 
@@ -48,7 +48,7 @@
 
   <!-- <mat-divider inset></mat-divider> -->
 
-  <mat-card-subtitle>Likes: 12 | Dislikes: 2</mat-card-subtitle>
+  <mat-card-subtitle>Likes: {{post.usersLiked}} | Dislikes: 2</mat-card-subtitle>
 
 </mat-card>
 
