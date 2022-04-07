@@ -32,7 +32,8 @@ export class PostService {
               content: post.content,
               imagePath: post.imagePath,
               creator: post.creator,
-              creatorName: post.creatorName
+              creatorName: post.creatorName,
+              creatorAvatar: post.creatorAvatar
             };
           }),
           maxPosts: postData.maxPosts
@@ -76,7 +77,7 @@ export class PostService {
       postData.append('content', content);
       postData.append('image', image, title)
     } else {
-      postData = { id: id, title: title, content: content, imagePath: image, creator: null, creatorName: null };
+      postData = { id: id, title: title, content: content, imagePath: image, creator: null, creatorName: null, creatorAvatar: null };
     }
 
     this.http.put(this.baseURL + '/posts/edit/' + id, postData)

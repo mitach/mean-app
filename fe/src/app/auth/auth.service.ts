@@ -29,8 +29,6 @@ export class AuthService {
     authData.append('password', password);
     authData.append('image', image, email);
 
-    console.log(authData.get('image'));
-
     this.http.post(this.baseURL + '/signup', authData)
       .subscribe(response => {
 

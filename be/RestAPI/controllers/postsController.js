@@ -74,13 +74,15 @@ router.post('', checkAuth, multer({ storage: storage }).single('image'), async (
     const url = req.protocol + '://' + req.get('host');
 
     let creator = await User.findById(req.userData.userId);
+    let creatorAvatar = await User.findById(req.userData.userId);
 
     const post = new Post({
         title: req.body.title,
         content: req.body.content,
         imagePath: url + '/images/' + req.file.filename,
         creator: req.userData.userId,
-        creatorName: creator.name
+        creatorName: creator.name,
+        creatorAvatar: creatorAvatar.avatarPath
     });
 
     post.save()

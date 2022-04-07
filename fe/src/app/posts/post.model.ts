@@ -5,4 +5,5 @@ export interface IPost {
     imagePath: string;
     creator: string;
     creatorName: string;
+    creatorAvatar: string;
 }

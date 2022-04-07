@@ -53,14 +53,16 @@ router.get('/:userId', (req, res) => {
 });
 
 router.post('/signup', multer({ storage: storage }).single('image'), (req, res) => {
-    console.log(req.body);
+    const url = req.protocol + '://' + req.get('host');
+
 
     bcrypt.hash(req.body.password, SALT_ROUNDS)
         .then(hash => {
             const user = new User({
                 name: req.body.name,
                 email: req.body.email,
-                password: hash
+                password: hash,
+                avatarPath: url + '/avatars/' + req.file.filename,
             });
             user.save()
                 .then(result => {
