@@ -20,8 +20,16 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  createUser(name: string, email: string, password: string) {
-    const authData: AuthData = { name: name, email: email, password: password };
+  createUser(name: string, email: string, password: string, image: File) {
+    // const authData: AuthData = { name: name, email: email, password: password };
+
+    const authData = new FormData();
+    authData.append('name', name);
+    authData.append('email', email);
+    authData.append('password', password);
+    authData.append('image', image, email);
+
+    console.log(authData.get('image'));
 
     this.http.post(this.baseURL + '/signup', authData)
       .subscribe(response => {
@@ -30,6 +38,13 @@ export class AuthService {
 
         this.router.navigate(['/']);
       });
+  }
+
+  async makeData(name: string, email: string, password: string) {
+    const authData = new FormData();
+    authData.append('name', name);
+    authData.append('email', email);
+    authData.append('password', password);
   }
 
   login(email: string, password: string) {

@@ -1,12 +1,36 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 
 const User = require('../models/User');
 
 const { SALT_ROUNDS, JWT_SECRET_KEY } = require('../constants');
 
 const router = express.Router();
+
+const MIME_TYPE_MAP = {
+    'image/png': 'png',
+    'image/jpeg': 'jpg',
+    'image/jpg': 'jpg'
+}
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        const isValid = MIME_TYPE_MAP[file.mimetype];
+        let error = new Error('Invalid mime type');
+
+        if (isValid) {
+            error = null;
+        }
+        cb(error, 'RestAPI/avatars');
+    },
+    filename: (req, file, cb) => {
+        const name = file.originalname.toLocaleLowerCase().split(' ').join('-');
+        const ext = MIME_TYPE_MAP[file.mimetype];
+        cb(null, name + '-' + Date.now() + '.' + ext);
+    }
+});
 
 router.get('', (req, res) => {
     User.find()
@@ -28,7 +52,9 @@ router.get('/:userId', (req, res) => {
         });
 });
 
-router.post('/signup', (req, res) => {
+router.post('/signup', multer({ storage: storage }).single('image'), (req, res) => {
+    console.log(req.body);
+
     bcrypt.hash(req.body.password, SALT_ROUNDS)
         .then(hash => {
             const user = new User({
