@@ -14,6 +14,10 @@
     max-width: 400px;
 }
 
+.owner-card {
+    background-color: rgb(225, 225, 225);
+}
+
 .example-header-image {
     /* background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg'); */
     background-size: cover;

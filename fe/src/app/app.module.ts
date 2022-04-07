@@ -25,6 +25,7 @@ import { PostEditComponent } from './posts/post-edit/post-edit.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { MainComponent } from './core/main/main.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     PostEditComponent,
     LoginComponent,
     SignupComponent,
+    MainComponent,
 
   ],
   imports: [

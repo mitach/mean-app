@@ -25,7 +25,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   userIsAuthenticated: boolean = false;
   private authStatusSub: Subscription;
 
-  private postsSub: Subscription
+  private postsSub: Subscription;
 
   constructor(private postService: PostService, private authService: AuthService) {
 
@@ -53,6 +53,7 @@ export class PostListComponent implements OnInit, OnDestroy {
       });
   }
 
+  
   onDelete(postId: string) {
     this.isLoading = true;
 
@@ -79,6 +80,6 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.postsSub.unsubscribe();
-
+    this.authStatusSub.unsubscribe();
   }
 }

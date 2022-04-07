@@ -7,8 +7,10 @@ import { PostListComponent } from './posts/post-list/post-list.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
+import { MainComponent } from './core/main/main.component';
 
 const routes: Routes = [
+  { path: 'main', component: MainComponent },
   { path: '', component: PostListComponent },
   { path: 'create', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'edit/:postId', component: PostEditComponent, canActivate: [AuthGuard] },

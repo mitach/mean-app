@@ -63,7 +63,7 @@ export class AuthService {
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.userId = null;
-    this.router.navigate(['/']);
+    this.router.navigate(['/main']);
   }
 
   // TODO: Delete
