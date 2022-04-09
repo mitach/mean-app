@@ -15,6 +15,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   posts: IPost[] = [];
   isLoading: boolean = false;
 
+
   totalPosts = 0;
   postsPerPage = 5;
   currentPage = 1;
@@ -42,8 +43,6 @@ export class PostListComponent implements OnInit, OnDestroy {
 
         this.totalPosts = postData.postCount;
         this.posts = postData.posts;
-
-        console.log(this.posts)
       });
 
     this.userIsAuthenticated = this.authService.getIsAuth();

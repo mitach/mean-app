@@ -29,7 +29,7 @@ export class PostService {
             return {
               id: post._id,
               title: post.title,
-              content: post.content,
+              content: post.content.split(' '),
               imagePath: post.imagePath,
               creator: post.creator,
               creatorName: post.creatorName,
@@ -58,6 +58,7 @@ export class PostService {
 
   addPost(title: string, content: string, image: File) {
     const postData = new FormData();
+
     postData.append('title', title);
     postData.append('content', content);
     postData.append('image', image, title);

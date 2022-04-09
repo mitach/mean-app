@@ -15,7 +15,7 @@
 }
 
 .owner-card {
-    background-color: rgb(225, 225, 225);
+    background-color: rgb(233, 240, 241);
 }
 
 .example-header-image {
@@ -32,5 +32,16 @@
 }
 
 .settings {
-    margin-left: 174px;
+    margin-left: 160px;
+  
+}
+
+a {
+    text-decoration: none;
+}
+
+
+mat-chip {
+    cursor: pointer;
+
 }
