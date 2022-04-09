@@ -1,0 +1,23 @@
+mat-toolbar-row {
+    display: block;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+p {
+    font-size: large;
+    font-weight: 100;
+}
+
+ul {
+    list-style: none;
+    /* padding: 0;
+    margin: 0;
+    display: flex; */
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}

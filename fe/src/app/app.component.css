@@ -1,4 +1,15 @@
 main {
+    min-height: calc(100vh - 64px - 64px - 32px);
     width: 80%;
     margin: 1rem auto;
+}
+
+app-footer {
+    position: static;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
 }
