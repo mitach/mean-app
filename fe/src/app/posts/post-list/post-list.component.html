@@ -1,62 +1,76 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-<mat-form-field appearance="fill">
-  <select matNativeControl required>
-    <option value="by-title">By title</option>
-    <option value="by-keyword">By keyword</option>
-  </select>
-</mat-form-field>
+<div *ngIf="userIsAuthenticated">
+  <mat-form-field appearance="fill">
+    <mat-label>Filter by:</mat-label>
+    <select matNativeControl required (change)="onSelect($event)">
+      <option value="title">Title</option>
+      <option value="keyword">Keyword</option>
+    </select>
+  </mat-form-field>
 
-<mat-form-field appearance="fill">
-  
-  <mat-label>Search</mat-label>
-  <input type="text" matInput>
-  <button matSuffix mat-button><mat-icon >search</mat-icon></button>
-  
-</mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Search</mat-label>
+    <input type="text" matInput #filter />
+    <button (click)="onFilter(filter)" matSuffix mat-button>
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
 
-<mat-card class="example-card" [ngClass]="{'owner-card': userId == post.creator}" *ngFor="let post of posts">
+  <button
+    (click)="onRemoveFilters()"
+    mat-flat-button
+    color="warn"
+    [disabled]="filterDisabling"
+  >
+    Remove filters
+  </button>
+
+</div>
+
+<mat-card
+  class="example-card"
+  [ngClass]="{ 'owner-card': userId == post.creator }"
+  *ngFor="let post of posts"
+>
   <mat-card-header>
-    <img mat-card-avatar class="example-header-image" [src]="post.creatorAvatar"/>
+    <img
+      mat-card-avatar
+      class="example-header-image"
+      [src]="post.creatorAvatar"
+    />
     <mat-card-title>{{ post.title }}</mat-card-title>
-    <mat-card-subtitle>posted by: {{post.creatorName}}</mat-card-subtitle>
+    <mat-card-subtitle>posted by: {{ post.creatorName }}</mat-card-subtitle>
   </mat-card-header>
 
-  <img
-    mat-card-image
-    [src]="post.imagePath"
-    [alt]="post.title"
-  />
+  <img mat-card-image [src]="post.imagePath" [alt]="post.title" />
 
   <mat-card-content>
-    <!-- <p>
-      {{ post.content }}
-    </p> -->
     <mat-chip-list aria-label="Fish selection">
-   
-        
-        
-    
-        <button (click)="onClick($event)" *ngFor="let chip of post.content"><mat-chip>{{ chip }}</mat-chip></button>
+      <button
+        (click)="onSearchByKeyword($event)"
+        *ngFor="let chip of post.content"
+        [disabled]="!userIsAuthenticated"
+      >
+        <mat-chip [disabled]="!userIsAuthenticated">{{ chip }}</mat-chip>
+      </button>
     </mat-chip-list>
   </mat-card-content>
 
-  <mat-divider inset *ngIf="userIsAuthenticated"></mat-divider>
+  <mat-divider inset *ngIf="userId == post.creator"></mat-divider>
 
-  <mat-card-actions class="cardactions" *ngIf="userIsAuthenticated" align="start">
+  <mat-card-actions
+    class="cardactions"
+    *ngIf="userId == post.creator"
+    align="start"
+  >
     <div class="actions">
-      <!-- <div *ngIf="userId != post.creator">
-        <button mat-button (click)="onLiked(post.id)">LIKE</button>
-
-        <button mat-button>DISLIKE</button>
-      </div> -->
-
-      <!-- <div *ngIf="userId == post.creator">
-        <p>You already voted!</p>
-      </div> -->
-
-      <div class="settings" *ngIf="userId == post.creator">
-        <button mat-icon-button color="primary" [routerLink]="['/edit', post.id]">
+      <div class="settings">
+        <button
+          mat-icon-button
+          color="primary"
+          [routerLink]="['/edit', post.id]"
+        >
           <mat-icon>edit</mat-icon>
         </button>
 
@@ -65,15 +79,21 @@
         </button>
       </div>
     </div>
-
   </mat-card-actions>
 
   <!-- <mat-divider inset></mat-divider> -->
 
   <!-- <mat-card-subtitle>Likes: {{post.usersLiked}} | Dislikes: 2</mat-card-subtitle> -->
-
 </mat-card>
 
-<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="posts.length > 0"></mat-paginator>
+<mat-paginator
+  [length]="totalPosts"
+  [pageSize]="postsPerPage"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)"
+  *ngIf="posts.length > 0"
+></mat-paginator>
 
-<p class="info-text" *ngIf="posts.length <= 0 && !isLoading">There are no posts!</p>
+<p class="info-text" *ngIf="posts.length <= 0 && !isLoading">
+  There are no posts!
+</p>

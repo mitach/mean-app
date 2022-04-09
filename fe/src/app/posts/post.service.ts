@@ -19,10 +19,13 @@ export class PostService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getPosts(postsPerPage: number, currentPage: number, keyword: string) {
+  getPosts(postsPerPage: number, currentPage: number, keyword: string, title: string) {
     let queryParameters;
+
     if (keyword != '') {
       queryParameters = `?pagesize=${postsPerPage}&page=${currentPage}&keyword=${keyword}`
+    } else if (title != '') {
+      queryParameters = `?pagesize=${postsPerPage}&page=${currentPage}&title=${title}`
     } else {
       queryParameters = `?pagesize=${postsPerPage}&page=${currentPage}`;
     }
@@ -50,17 +53,9 @@ export class PostService {
       });
   }
 
-  getPostsWhereKeyword(keyword) {
-    let queryParameter = `?keyword=${keyword}`;
-    console.log(this.baseURL + '/posts' + queryParameter)
-    this.http.get(this.baseURL + '/posts' + queryParameter);
-  }
-
   getPost(id: string) {
     return this.http.get<{ _id: string, title: string, content: string, imagePath: string }>(this.baseURL + '/posts/' + id);
   }
-
-
 
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();

@@ -15,6 +15,9 @@ export class PostListComponent implements OnInit, OnDestroy {
   posts: IPost[] = [];
   isLoading: boolean = false;
 
+  filterBy: string = 'title';
+
+  filterDisabling: boolean = true;
 
   totalPosts = 0;
   postsPerPage = 5;
@@ -35,7 +38,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isLoading = true;
 
-    this.postService.getPosts(this.postsPerPage, this.currentPage, '');
+    this.postService.getPosts(this.postsPerPage, this.currentPage, '', '');
     this.userId = this.authService.getUserId();
     this.postsSub = this.postService.getPostUpdateListener()
       .subscribe((postData: { posts: IPost[], postCount: number }) => {
@@ -54,14 +57,37 @@ export class PostListComponent implements OnInit, OnDestroy {
       });
   }
 
-  
+
   onDelete(postId: string) {
     this.isLoading = true;
 
     this.postService.deletePost(postId)
       .subscribe(() => {
-        this.postService.getPosts(this.postsPerPage, this.currentPage, '');
+        this.postService.getPosts(this.postsPerPage, this.currentPage, '', '');
       })
+  }
+
+  onRemoveFilters() {
+    this.isLoading = true;
+    this.filterDisabling = true;
+
+    this.postService.getPosts(this.postsPerPage, this.currentPage, '', '');
+    this.userId = this.authService.getUserId();
+    this.postsSub = this.postService.getPostUpdateListener()
+      .subscribe((postData: { posts: IPost[], postCount: number }) => {
+        this.isLoading = false;
+
+        this.totalPosts = postData.postCount;
+        this.posts = postData.posts;
+      });
+
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
+      });
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -70,7 +96,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.currentPage = pageData.pageIndex + 1;
     this.postsPerPage = pageData.pageSize;
 
-    this.postService.getPosts(this.postsPerPage, this.currentPage, '');
+    this.postService.getPosts(this.postsPerPage, this.currentPage, '', '');
 
     window.scroll({
       top: 0,
@@ -79,12 +105,31 @@ export class PostListComponent implements OnInit, OnDestroy {
     });
   }
 
-  onClick(event: Event) {
+  onSearchByKeyword(event: Event) {
+    this.isLoading = true;
     let keyword = (event.target as HTMLElement).textContent;
+    this.filterDisabling = false;
+    this.postService.getPosts(this.postsPerPage, this.currentPage, keyword, '');
+  }
 
-    console.log('>>', keyword)
-    // this.postService.getPostsWhereKeyword(searchBy);
-    this.postService.getPosts(this.postsPerPage, this.currentPage, keyword);
+  onFilter(filter) {
+    this.filterDisabling = false;
+
+    if (this.filterBy == 'keyword') {
+      this.postService.getPosts(this.postsPerPage, this.currentPage, filter.value, '');
+    } else if (this.filterBy = 'title') {
+      this.postService.getPosts(this.postsPerPage, this.currentPage, '', filter.value);
+    }
+
+    filter.value = '';
+  }
+
+  onSelect(event: Event) {
+    if ((event.target as HTMLSelectElement).value == 'title') {
+      this.filterBy = 'title'
+    } else if ((event.target as HTMLSelectElement).value == 'keyword') {
+      this.filterBy = 'keyword'
+    }
   }
 
   ngOnDestroy(): void {

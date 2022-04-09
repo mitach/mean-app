@@ -31,12 +31,12 @@ const storage = multer.diskStorage({
 });
 
 router.get('', (req, res) => {
-    console.log(req.query);
-
     let postQuery;
-    let pattern = req.query.keyword
+
     if (req.query.keyword) {
         postQuery = Post.find({ content: new RegExp(req.query.keyword, 'i') });
+    } else if (req.query.title) {
+        postQuery = Post.find({ title: new RegExp(req.query.title, 'i') });
     } else {
         postQuery = Post.find();
     }
