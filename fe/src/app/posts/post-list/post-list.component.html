@@ -1,5 +1,20 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
+<mat-form-field appearance="fill">
+  <select matNativeControl required>
+    <option value="by-title">By title</option>
+    <option value="by-keyword">By keyword</option>
+  </select>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  
+  <mat-label>Search</mat-label>
+  <input type="text" matInput>
+  <button matSuffix mat-button><mat-icon >search</mat-icon></button>
+  
+</mat-form-field>
+
 <mat-card class="example-card" [ngClass]="{'owner-card': userId == post.creator}" *ngFor="let post of posts">
   <mat-card-header>
     <img mat-card-avatar class="example-header-image" [src]="post.creatorAvatar"/>
@@ -18,9 +33,11 @@
       {{ post.content }}
     </p> -->
     <mat-chip-list aria-label="Fish selection">
-
-      <a  routerLink="/signup" *ngFor="let chip of post.content"><mat-chip>{{ chip }}</mat-chip></a>
-      
+   
+        
+        
+    
+        <button (click)="onClick($event)" *ngFor="let chip of post.content"><mat-chip>{{ chip }}</mat-chip></button>
     </mat-chip-list>
   </mat-card-content>
 

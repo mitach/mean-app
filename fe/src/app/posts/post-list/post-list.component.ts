@@ -35,7 +35,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isLoading = true;
 
-    this.postService.getPosts(this.postsPerPage, this.currentPage);
+    this.postService.getPosts(this.postsPerPage, this.currentPage, '');
     this.userId = this.authService.getUserId();
     this.postsSub = this.postService.getPostUpdateListener()
       .subscribe((postData: { posts: IPost[], postCount: number }) => {
@@ -60,7 +60,7 @@ export class PostListComponent implements OnInit, OnDestroy {
 
     this.postService.deletePost(postId)
       .subscribe(() => {
-        this.postService.getPosts(this.postsPerPage, this.currentPage);
+        this.postService.getPosts(this.postsPerPage, this.currentPage, '');
       })
   }
 
@@ -70,7 +70,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.currentPage = pageData.pageIndex + 1;
     this.postsPerPage = pageData.pageSize;
 
-    this.postService.getPosts(this.postsPerPage, this.currentPage);
+    this.postService.getPosts(this.postsPerPage, this.currentPage, '');
 
     window.scroll({
       top: 0,
@@ -79,8 +79,12 @@ export class PostListComponent implements OnInit, OnDestroy {
     });
   }
 
-  onLiked(postId) {
-    this.postService.likePost(postId, this.userId)
+  onClick(event: Event) {
+    let keyword = (event.target as HTMLElement).textContent;
+
+    console.log('>>', keyword)
+    // this.postService.getPostsWhereKeyword(searchBy);
+    this.postService.getPosts(this.postsPerPage, this.currentPage, keyword);
   }
 
   ngOnDestroy(): void {

@@ -31,9 +31,18 @@ const storage = multer.diskStorage({
 });
 
 router.get('', (req, res) => {
+    console.log(req.query);
+
+    let postQuery;
+    let pattern = req.query.keyword
+    if (req.query.keyword) {
+        postQuery = Post.find({ content: new RegExp(req.query.keyword, 'i') });
+    } else {
+        postQuery = Post.find();
+    }
+
     const pageSize = Number(req.query.pagesize);
     const currentPage = Number(req.query.page);
-    const postQuery = Post.find();
 
     let postsReceived;
 

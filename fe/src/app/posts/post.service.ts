@@ -19,8 +19,13 @@ export class PostService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getPosts(postsPerPage: number, currentPage: number) {
-    const queryParameters = `?pagesize=${postsPerPage}&page=${currentPage}`;
+  getPosts(postsPerPage: number, currentPage: number, keyword: string) {
+    let queryParameters;
+    if (keyword != '') {
+      queryParameters = `?pagesize=${postsPerPage}&page=${currentPage}&keyword=${keyword}`
+    } else {
+      queryParameters = `?pagesize=${postsPerPage}&page=${currentPage}`;
+    }
 
     this.http.get<{ message: string, posts: any, maxPosts: number }>(this.baseURL + '/posts' + queryParameters)
       .pipe(map((postData) => {
@@ -44,6 +49,12 @@ export class PostService {
         this.posts = transformedData.posts
         this.postsUpdated.next({ posts: [...this.posts], postCount: transformedData.maxPosts });
       });
+  }
+
+  getPostsWhereKeyword(keyword) {
+    let queryParameter = `?keyword=${keyword}`;
+    console.log(this.baseURL + '/posts' + queryParameter)
+    this.http.get(this.baseURL + '/posts' + queryParameter);
   }
 
   getPost(id: string) {

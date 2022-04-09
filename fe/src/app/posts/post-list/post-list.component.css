@@ -4,6 +4,12 @@
     align-items: center;
 }
 
+mat-form-field {
+    display: inline-flex;
+    flex-direction: row;
+    row-gap: 10px;
+}
+
 .info-text {
     text-align: center;
     font-size: large;
@@ -33,11 +39,14 @@
 
 .settings {
     margin-left: 160px;
-  
+
 }
 
-a {
+button {
     text-decoration: none;
+    border: none;
+    text-align: center;
+    background-color: transparent;
 }
 
 
