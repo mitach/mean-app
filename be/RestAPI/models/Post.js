@@ -7,7 +7,6 @@ const postSchema = new mongoose.Schema({
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     creatorName: { type: String, required: true },
     creatorAvatar: { type: String, required: true },
-    usersLiked: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 });
 
 const Post = mongoose.model('Post', postSchema);

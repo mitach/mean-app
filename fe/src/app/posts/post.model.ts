@@ -6,5 +6,4 @@ export interface IPost {
     creator: string;
     creatorName: string;
     creatorAvatar: string;
-    usersLiked: {};
 }
