@@ -1,6 +1,6 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-<div *ngIf="userIsAuthenticated">
+<div *ngIf="userIsAuthenticated && !isLoading">
   <mat-form-field appearance="fill">
     <mat-label>Filter by:</mat-label>
     <select matNativeControl required (change)="onSelect($event)">

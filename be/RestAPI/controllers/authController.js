@@ -47,7 +47,11 @@ router.get('/:userId', (req, res) => {
         .then(user => {
             res.status(200).json({
                 message: 'User fetched successfully!',
-                user: user
+                user: {
+                    name: user.name,
+                    email: user.email,
+                    avatarPath: user.avatarPath
+                }
             });
         });
 });

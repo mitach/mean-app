@@ -1,0 +1,25 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="user" class="container">
+  <div class="avatar-flip">
+    <img
+      [src]="user.avatarPath"
+      height="150"
+      width="150"
+    />
+    <img
+      src="https://pbs.twimg.com/profile_images/952814538864447488/TTQNU-2A_400x400.jpg"
+      height="150"
+      width="150"
+    />
+  </div>
+  <h2>{{user.name}}</h2>
+  <h4>{{user.email}}</h4>
+</div>
+
+
+
+
+<div class="container">
+
+ 
+</div>

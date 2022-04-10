@@ -27,6 +27,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { MainComponent } from './core/main/main.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MainComponent } from './core/main/main.component';
     LoginComponent,
     SignupComponent,
     MainComponent,
+    ProfileComponent,
 
   ],
   imports: [

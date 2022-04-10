@@ -99,6 +99,10 @@ export class AuthService {
   //   }
   // }
 
+  getUser(userId: string) {
+    return this.http.get(this.baseURL + '/' + userId);
+  }
+
   getToken() {
     return this.token;
   }
