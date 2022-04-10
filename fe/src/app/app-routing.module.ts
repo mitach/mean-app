@@ -9,6 +9,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
 import { MainComponent } from './core/main/main.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NotFoundComponent } from './core/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'posts/create', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'posts/edit/:postId', component: PostEditComponent, canActivate: [AuthGuard] },
-  {path: 'profile/:userId', component: ProfileComponent, canActivate: [AuthGuard]}
+  { path: 'profile/:userId', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: '**', pathMatch: 'full', component: NotFoundComponent }
 ];
 
 @NgModule({
