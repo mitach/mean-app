@@ -1,0 +1,19 @@
+.name {
+    margin-top: 1000px;
+}
+
+p {
+    font-family: "Roboto", sans-serif
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 40px;
+}

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { AuthService } from '../auth.service';
 
@@ -10,7 +11,7 @@ import { mimeType } from './mime-type.validator';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
 
@@ -18,9 +19,18 @@ export class SignupComponent implements OnInit {
 
   isLoading: boolean = false;
 
+  error = 'Invalid username'
+
+  private authStatusSub: Subscription;
+
   constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authStatusSub = this.authService.getAuthStatusListener()
+      .subscribe(authStatus => {
+        this.isLoading = false;
+      });
+      
     this.form = new FormGroup({
       'name': new FormControl(null, {
         validators: [Validators.required, Validators.minLength(2)]
@@ -52,6 +62,10 @@ export class SignupComponent implements OnInit {
       this.imagePreview = reader.result as string;
     }
     reader.readAsDataURL(file);
+  }
+
+  ngOnDestroy(): void {
+    this.authStatusSub.unsubscribe();
   }
 
 }

@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
+import { catchError } from 'rxjs/operators'
+
 import { AuthData } from './auth-data.model';
 
 @Injectable({
@@ -29,12 +31,13 @@ export class AuthService {
     authData.append('password', password);
     authData.append('image', image, email);
 
-    this.http.post(this.baseURL + '/signup', authData)
-      .subscribe(response => {
-
+    return this.http.post(this.baseURL + '/signup', authData)
+      .subscribe(() => {
         this.login(email, password);
-
-        this.router.navigate(['']);
+        this.router.navigate(['/']);
+      }, error => {
+        this.authStatusListener.next(false);
+        alert(error)
       });
   }
 
@@ -66,7 +69,13 @@ export class AuthService {
 
           this.router.navigate(['']);
         }
-      })
+      }, error => {
+        this.authStatusListener.next(false);
+      });
+  }
+
+  handleError() {
+    return new Error("Eba si maikata");
   }
 
   logout() {
