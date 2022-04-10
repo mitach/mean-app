@@ -13,9 +13,9 @@ import { NotFoundComponent } from './core/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
-  { path: 'posts', component: PostListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'posts', component: PostListComponent },
   { path: 'posts/create', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'posts/edit/:postId', component: PostEditComponent, canActivate: [AuthGuard] },
   { path: 'profile/:userId', component: ProfileComponent, canActivate: [AuthGuard] },

@@ -86,7 +86,7 @@
 
           <hr />
 
-          <p>Pages -> Main, Posts, Blog, Profile, Create & Edit</p>
+          <p>Pages -> About, Posts, Blog, Profile, Create & Edit x2, Not-found</p>
         </div>
       </div>
 
@@ -104,16 +104,16 @@
         <div class="w3-container center">
 
           <div class="btn">
-              <button mat-raised-button color="primary" routerLink="/posts">Posts</button>
+              <button mat-raised-button color="primary" routerLink="/posts" [disabled]="!userIsAuthenticated">Posts</button>
           </div>
           <div class="btn">
-              <button mat-raised-button color="primary" routerLink="/blog">Blog</button>
+              <button mat-raised-button color="primary" routerLink="/blog" [disabled]="!userIsAuthenticated">Blog</button>
           </div>
           <div class="btn">
-              <button mat-raised-button color="primary" routerLink="/login">Login</button>
+              <button mat-raised-button color="primary" routerLink="/login" [disabled]="userIsAuthenticated">Login</button>
           </div>
           <div class="btn">
-              <button mat-raised-button color="primary" routerLink="/signup">Signup</button>
+              <button mat-raised-button color="primary" routerLink="/signup" [disabled]="userIsAuthenticated">Signup</button>
           </div>
         
         </div>
