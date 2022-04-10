@@ -34,7 +34,7 @@ export class AuthService {
 
         this.login(email, password);
 
-        this.router.navigate(['/']);
+        this.router.navigate(['']);
       });
   }
 
@@ -64,7 +64,7 @@ export class AuthService {
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           this.saveAuthData(token, expirationDate, this.userId);
 
-          this.router.navigate(['/']);
+          this.router.navigate(['']);
         }
       })
   }
@@ -76,7 +76,7 @@ export class AuthService {
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.userId = null;
-    this.router.navigate(['/main']);
+    this.router.navigate(['']);
   }
 
   // TODO: Delete

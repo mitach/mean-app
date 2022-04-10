@@ -11,32 +11,34 @@ mat-spinner {
 
 .container {
   width: 400px;
-  margin: 120px auto 120px;
+  margin: 80px auto 20px;
   background-color: rgb(247, 247, 247);
-  padding: 0 20px 20px;
+  padding: 0 10px 10px;
   border-radius: 6px;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.075);
-  -webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.075);
-  -moz-box-shadow: 0 2px 5px rgba(0,0,0,0.075);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.075);
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.175);
+  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.075);
+  text-align: center;
+}
+
+.center {
   text-align: center;
 }
 
 .content-container {
-  width: 500px;
-  margin: 120px auto 120px;
-  background-color: #fff;
-  padding: 0 20px 20px;
+  width: 400px;
+  margin: 80px auto 20px;
+  background-color: rgb(247, 247, 247);
+  padding: 0 10px 10px;
   border-radius: 6px;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.075);
-  -webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.075);
-  -moz-box-shadow: 0 2px 5px rgba(0,0,0,0.075);
-  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.075);
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.175);
+  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.075);
 }
-
 
 .avatar {
   border-radius: 100px;
@@ -55,12 +57,14 @@ h2 {
   margin-bottom: 15px;
   color: #333;
 }
+
 h4 {
   font-size: 13px;
   color: #00baff;
   letter-spacing: 1px;
   margin-bottom: 25px
 }
+
 p {
   font-size: 16px;
   line-height: 26px;
@@ -75,6 +79,10 @@ button {
   background-color: transparent;
 }
 
+mat-card-title {
+  margin: 0;
+  padding: 0;
+}
 
 mat-chip {
   cursor: pointer;
@@ -105,4 +113,4 @@ mat-chip {
 .settings {
   margin-left: 160px;
 
-} 
+}

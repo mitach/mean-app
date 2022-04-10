@@ -90,7 +90,7 @@ export class PostService {
 
     this.http.post<{ message: string, post: IPost }>(this.baseURL + '/posts', postData)
       .subscribe((response) => {
-        this.router.navigate(['']);
+        this.router.navigate(['/posts']);
       })
   }
 
@@ -109,7 +109,7 @@ export class PostService {
 
     this.http.put(this.baseURL + '/posts/edit/' + id, postData)
       .subscribe(response => {
-        this.router.navigate(['']);
+        this.router.navigate(['/posts']);
       })
   }
 

@@ -44,7 +44,6 @@ export class ProfileComponent implements OnInit {
 
     this.postService.getPostsOfUser(this.userId)
       .subscribe((postsData: { posts: any }) => {
-        console.log(postsData.posts)
         this.posts = postsData.posts
       })
 
@@ -56,7 +55,6 @@ export class ProfileComponent implements OnInit {
       .subscribe(() => {
         this.postService.getPostsOfUser(this.userId)
           .subscribe((postsData: { posts: any }) => {
-            console.log(postsData.posts)
             this.posts = postsData.posts
           })
       })

@@ -1,5 +1,6 @@
 <mat-toolbar color="primary">
-  <span> <a routerLink="/">LifeBook</a></span>
+  <span> <a routerLink="/posts">Posts</a></span>
+  <span> <a routerLink="/posts">Blog</a></span>
   <span class="spacer"></span>
 
   <ul>
@@ -16,7 +17,7 @@
     </li>
 
     <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/create" routerLinkActive="mat-accent">
+      <a mat-button routerLink="/posts/create" routerLinkActive="mat-accent">
         Add a new post
       </a>
     </li>

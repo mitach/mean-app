@@ -11,12 +11,12 @@ import { MainComponent } from './core/main/main.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
-  { path: 'main', component: MainComponent },
-  { path: '', component: PostListComponent },
+  { path: '', component: MainComponent },
+  { path: 'posts', component: PostListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'create', component: PostCreateComponent, canActivate: [AuthGuard] },
-  { path: 'edit/:postId', component: PostEditComponent, canActivate: [AuthGuard] },
+  { path: 'posts/create', component: PostCreateComponent, canActivate: [AuthGuard] },
+  { path: 'posts/edit/:postId', component: PostEditComponent, canActivate: [AuthGuard] },
   {path: 'profile/:userId', component: ProfileComponent, canActivate: [AuthGuard]}
 ];
 

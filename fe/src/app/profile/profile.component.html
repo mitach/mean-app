@@ -1,4 +1,5 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
+
 <div *ngIf="user" class="container">
   <div class="avatar">
     <img
@@ -13,13 +14,16 @@
 </div>
 
 
-<div class="container">
+<div class="content-container">
+  <div class="center">
     <button mat-button>My posts</button>
+    <button mat-button disabled>|</button>
     <button mat-button>My Blogs</button>
     <mat-divider></mat-divider>
     <mat-divider></mat-divider>
     <mat-divider></mat-divider>
     <mat-divider></mat-divider>
+  </div>
     <mat-card
     class="example-card"
     [ngClass]="{ 'owner-card': userId == post.creator }"
@@ -78,7 +82,7 @@
     <!-- <mat-card-subtitle>Likes: {{post.usersLiked}} | Dislikes: 2</mat-card-subtitle> -->
   </mat-card>
  
-  <p class="info-text" *ngIf="posts.length <= 0 && !isLoading">
+  <p class="info-text" *ngIf="posts && posts.length < 1 && !isLoading">
     There are no posts!
   </p>
 </div>
