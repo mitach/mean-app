@@ -11,6 +11,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   userId: string;
   private authListenerSubs: Subscription;
+  private authStatusSub: Subscription;
+
 
   constructor(private authService: AuthService) { 
 
@@ -23,20 +25,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
       });
+
+      this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
+      });
   }
 
   onLogout() {
     this.authService.logout();
   }
 
-  async onProfile() {
-    this.userId = await localStorage.getItem('userId');
-
-    console.log('aaa')
-  }
 
   ngOnDestroy(): void {
     this.authListenerSubs.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 
 }
