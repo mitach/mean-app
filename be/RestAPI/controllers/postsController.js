@@ -79,13 +79,19 @@ router.get('/:id', (req, res) => {
         })
 });
 
-router.put('/like/:postId', async (req, res) => {
-
-    await Post.findByIdAndUpdate(
-        req.params.postId,
-        { $push: { usersLiked: req.body.userId } },
-        { runValidators: true }
-    );
+router.get('/by/:userId', (req, res) => {
+    Post.find( { creator: req.params.userId})
+    .then(posts => {
+        if (posts) {
+            res.status(200).json({
+                posts: posts
+            })
+        } else {
+            res.status(404).json({
+                message: 'Post not found!'
+            })
+        }
+    })
 })
 
 router.post('', checkAuth, multer({ storage: storage }).single('image'), async (req, res) => {

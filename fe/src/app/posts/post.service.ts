@@ -57,6 +57,26 @@ export class PostService {
     return this.http.get<{ _id: string, title: string, content: string, imagePath: string }>(this.baseURL + '/posts/' + id);
   }
 
+  getPostsOfUser(userId: string) {
+
+    return this.http.get<{ posts: any }>(this.baseURL + '/posts/by/' + userId)
+      .pipe(map((postData) => {
+        return {
+          posts: postData.posts.map(post => {
+            return {
+              id: post._id,
+              title: post.title,
+              content: post.content.split(' '),
+              imagePath: post.imagePath,
+              creator: post.creator,
+              creatorName: post.creatorName,
+              creatorAvatar: post.creatorAvatar,
+            }
+          })
+        }
+      }))
+  }
+
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
   }
@@ -99,6 +119,6 @@ export class PostService {
 
   // likePost(postId, userId) {
   //   this.http.put(this.baseURL + '/posts/like/' + postId, {userId}).subscribe();
-      
+
   // }
 }
