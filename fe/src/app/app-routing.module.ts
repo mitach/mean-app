@@ -10,6 +10,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { MainComponent } from './core/main/main.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
+import { BlogComponent } from './blog/blog.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'posts', component: PostListComponent },
   { path: 'posts/create', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'posts/edit/:postId', component: PostEditComponent, canActivate: [AuthGuard] },
+  {path: 'blog', component: BlogComponent, canActivate: [AuthGuard]},
   { path: 'profile/:userId', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: '**', pathMatch: 'full', component: NotFoundComponent }
 ];

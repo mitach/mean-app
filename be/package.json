@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./RestAPI/index.js"
+    "start": "node ./RestAPI/index.js"
   },
   "keywords": [],
   "author": "DM",
