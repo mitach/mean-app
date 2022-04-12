@@ -24,6 +24,12 @@
     </li>
 
     <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/blog/create" routerLinkActive="mat-accent">
+        Add a new blog  
+      </a>
+    </li>
+
+    <li *ngIf="userIsAuthenticated">
       <a
         mat-button
         [routerLink]="['/profile/', userId]"

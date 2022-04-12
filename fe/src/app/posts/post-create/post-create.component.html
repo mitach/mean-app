@@ -6,7 +6,7 @@
       <mat-label>Title</mat-label>
       <input matInput type="text" formControlName="title" />
       <mat-error *ngIf="form.get('title').invalid"
-        >Please enter a valid title</mat-error
+        >Minimum length of the title: 2 chars</mat-error
       >
     </mat-form-field>
 
@@ -28,7 +28,7 @@
       <mat-label>Keywords separated by a space</mat-label>
       <textarea matInput rows="6" formControlName="content"></textarea>
       <mat-error *ngIf="form.get('content').invalid"
-        >Please enter post content</mat-error
+        >Please enter at least one keyword</mat-error
       >
     </mat-form-field>
 

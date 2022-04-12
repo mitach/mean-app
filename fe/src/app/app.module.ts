@@ -29,7 +29,8 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { MainComponent } from './core/main/main.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
-import { BlogComponent } from './blog/blog.component';
+import { BlogListComponent } from './blog/blog-list/blog-list.component';
+import { BlogCreateComponent } from './blog/blog-create/blog-create.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { BlogComponent } from './blog/blog.component';
     MainComponent,
     ProfileComponent,
     NotFoundComponent,
-    BlogComponent,
+    BlogListComponent,
+    BlogCreateComponent,
 
   ],
   imports: [
