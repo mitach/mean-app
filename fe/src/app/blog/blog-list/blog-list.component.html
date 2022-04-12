@@ -1,31 +1,20 @@
-<mat-card class="example-card">
+<mat-card *ngFor="let blog of blogs" class="example-card">
+
   <mat-card-title-group>
-    <mat-card-title>Shiba Inu</mat-card-title>
-    <mat-card-subtitle>Small</mat-card-subtitle>
+    <mat-card-title>{{blog.title}}</mat-card-title>
+    <mat-card-subtitle>Posted by: {{blog.creatorName}}</mat-card-subtitle>
     <img
       mat-card-sm-image
-      src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+      [src]="blog.imagePath"
     />
   </mat-card-title-group>
+
   <mat-card-content>
-    {{ longText }}
+    {{blog.firstSentance}}
   </mat-card-content>
 
   <mat-card-actions align="end">
-      <button mat-button>Read More &#9654;  </button>
+      <button mat-button>Read More &#9654;</button>
   </mat-card-actions>
-</mat-card>
 
-<mat-card class="example-card">
-  <mat-card-title-group>
-    <mat-card-title>Shiba Inu</mat-card-title>
-    <mat-card-subtitle>Small</mat-card-subtitle>
-    <img
-      mat-card-sm-image
-      src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-    />
-  </mat-card-title-group>
-  <mat-card-content>
-    {{ longText2 }}
-  </mat-card-content>
 </mat-card>

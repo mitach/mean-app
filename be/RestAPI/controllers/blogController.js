@@ -30,6 +30,25 @@ const storage = multer.diskStorage({
     }
 });
 
+router.get('', (req, res) => {
+    let postQuery = Blog.find();
+
+    let blogsReceived;
+
+    postQuery
+        .then(blogs => {
+            blogsReceived = blogs;
+            return Blog.count();
+        })
+        .then(count => {
+            res.status(200).json({
+                message: 'Posts fetched successfully!',
+                blog: blogsReceived,
+                maxPosts: count
+            })
+        })
+});
+
 router.post('', checkAuth, multer({ storage: storage }).single('image'), async (req, res) => {
     const url = req.protocol + '://' + req.get('host');
 

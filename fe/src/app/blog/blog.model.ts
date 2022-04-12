@@ -5,4 +5,5 @@ export interface IBlog {
     imagePath: string;
     creator: string;
     creatorName: string;
+    firstSentance: string;
 }
