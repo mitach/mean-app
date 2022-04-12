@@ -57,7 +57,7 @@ export class PostEditComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    
+
     this.postService.editPost(this.postId, this.form.value.title, this.form.value.content, this.form.value.image);
   }
 
@@ -65,7 +65,7 @@ export class PostEditComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
     this.form.get('image').updateValueAndValidity();
-    
+
     const reader = new FileReader();
 
     reader.onload = () => {

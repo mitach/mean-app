@@ -31,6 +31,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { BlogListComponent } from './blog/blog-list/blog-list.component';
 import { BlogCreateComponent } from './blog/blog-create/blog-create.component';
+import { BlogEditComponent } from './blog/blog-edit/blog-edit.component';
+import { BlogPreviewComponent } from './blog/blog-preview/blog-preview.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { BlogCreateComponent } from './blog/blog-create/blog-create.component';
     NotFoundComponent,
     BlogListComponent,
     BlogCreateComponent,
+    BlogEditComponent,
+    BlogPreviewComponent,
 
   ],
   imports: [

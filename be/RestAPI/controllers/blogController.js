@@ -58,6 +58,20 @@ router.get('', (req, res) => {
         })
 });
 
+router.get('/:id', (req, res) => {
+    Blog.findById(req.params.id)
+        .then(blog => {
+            if (blog) {
+                res.status(200).json(blog)
+            } else {
+                res.status(404).json({
+                    message: 'Blog not found!'
+                })
+            }
+        })
+});
+
+
 router.post('', checkAuth, multer({ storage: storage }).single('image'), async (req, res) => {
     const url = req.protocol + '://' + req.get('host');
 
@@ -77,6 +91,51 @@ router.post('', checkAuth, multer({ storage: storage }).single('image'), async (
                 message: 'Blog added successfully!',
                 createdBlog
             });
+        });
+});
+
+router.put('/edit/:id', checkAuth, multer({ storage: storage }).single('image'), (req, res) => {
+    let imagePath = req.body.imagePath;
+
+    if (req.file) {
+        const url = req.protocol + '://' + req.get('host');
+        imagePath = url + '/images/' + req.file.filename
+    }
+
+    const blog = new Blog({
+        _id: req.body.id,
+        title: req.body.title,
+        content: req.body.content,
+        imagePath: imagePath,
+        creator: req.userData.userId
+    });
+
+    Blog.updateOne({ _id: req.params.id, creator: req.userData.userId }, blog)
+        .then(result => {
+            if (result.modifiedCount > 0) {
+                res.status(200).json({
+                    message: 'Update successful!'
+                });
+            } else {
+                res.status(401).json({
+                    message: 'Not Authorized!'
+                });
+            }
+        })
+});
+
+router.delete('/:id', checkAuth, (req, res) => {
+    Blog.deleteOne({ _id: req.params.id, creator: req.userData.userId })
+        .then(result => {
+            if (result.deletedCount > 0) {
+                res.status(200).json({
+                    message: 'Deletion successful!'
+                })
+            } else {
+                res.status(401).json({
+                    message: 'Not Authorized!'
+                });
+            }
         });
 });
 

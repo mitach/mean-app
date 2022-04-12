@@ -117,8 +117,4 @@ export class PostService {
     return this.http.delete(this.baseURL + '/posts/' + postId);
   }
 
-  // likePost(postId, userId) {
-  //   this.http.put(this.baseURL + '/posts/like/' + postId, {userId}).subscribe();
-
-  // }
 }

@@ -41,6 +41,8 @@ router.get('', (req, res) => {
         postQuery = Post.find();
     }
 
+    
+
     const pageSize = Number(req.query.pagesize);
     const currentPage = Number(req.query.page);
 

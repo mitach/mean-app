@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IBlog } from '../blog.model';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
@@ -10,7 +10,7 @@ import { BlogService } from '../blog.service';
   templateUrl: './blog-list.component.html',
   styleUrls: ['./blog-list.component.css']
 })
-export class BlogListComponent implements OnInit {
+export class BlogListComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
 
   blogs: IBlog[] = [];
@@ -67,4 +67,17 @@ export class BlogListComponent implements OnInit {
     });
   }
 
+  onDelete(postId: string) {
+    this.isLoading = true;
+
+    this.blogService.deleteBlog(postId)
+      .subscribe(() => {
+        this.blogService.getBlogs(this.postsPerPage, this.currentPage)
+      })
+  }
+
+  ngOnDestroy(): void {
+    this.blogSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
+  }
 }

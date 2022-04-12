@@ -27,7 +27,7 @@ export class BlogCreateComponent implements OnInit {
     })
   }
 
-  onSavePost() {
+  onSaveBlog() {
     if (this.form.invalid) {
       return;
     }
