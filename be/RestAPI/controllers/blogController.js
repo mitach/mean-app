@@ -71,6 +71,20 @@ router.get('/:id', (req, res) => {
         })
 });
 
+router.get('/by/:userId', (req, res) => {
+    Blog.find( { creator: req.params.userId})
+    .then(blogs => {
+        if (blogs) {
+            res.status(200).json({
+                blogs: blogs
+            })
+        } else {
+            res.status(404).json({
+                message: 'Blogs not found!'
+            })
+        }
+    })
+});
 
 router.post('', checkAuth, multer({ storage: storage }).single('image'), async (req, res) => {
     const url = req.protocol + '://' + req.get('host');

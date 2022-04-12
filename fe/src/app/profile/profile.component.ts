@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { BlogService } from '../blog/blog.service';
 import { IPost } from '../posts/post.model';
 import { PostService } from '../posts/post.service';
 
@@ -22,9 +23,13 @@ export class ProfileComponent implements OnInit {
 
   posts;
 
+  blogs;
+
+  render: string = 'posts';
+
   private postsSub: Subscription;
 
-  constructor(public route: ActivatedRoute, public authService: AuthService, public postService: PostService) { }
+  constructor(public route: ActivatedRoute, public authService: AuthService, public postService: PostService, public blogService: BlogService) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -47,15 +52,36 @@ export class ProfileComponent implements OnInit {
         this.posts = postsData.posts
       })
 
-
+    this.blogService.getBlogsOfUser(this.userId)
+      .subscribe((blogData: { blog: any }) => {
+        this.blogs = blogData.blog
+      })
   }
 
-  onDelete(postId: string) {
+  onDeletePost(postId: string) {
     this.postService.deletePost(postId)
       .subscribe(() => {
         this.postService.getPostsOfUser(this.userId)
           .subscribe((postsData: { posts: any }) => {
             this.posts = postsData.posts
+          })
+      })
+  }
+
+  onChangeRenderToPosts() {
+    this.render = 'posts';
+  }
+
+  onChangeRenderToBlogs() {
+    this.render = 'blogs';
+  }
+
+  onDeleteBlog(postId: string) {
+    this.blogService.deleteBlog(postId)
+      .subscribe(() => {
+        this.blogService.getBlogsOfUser(this.userId)
+          .subscribe((blogData: { blog: any}) => {
+            this.blogs = blogData.blog
           })
       })
   }

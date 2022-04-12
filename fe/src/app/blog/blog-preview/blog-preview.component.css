@@ -9,3 +9,7 @@
     margin-bottom: 2rem;
     width: 800px;
 }
+
+img {
+    max-height: 1000px;
+}

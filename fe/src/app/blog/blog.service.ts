@@ -25,28 +25,49 @@ export class BlogService {
     this.http.get<{ message: string, blog: any, maxPosts: number }>(this.baseURL + '/blog' + queryParameters)
       .pipe(map((blogData) => {
         return {
-          blog: blogData.blog.map(post => {
+          blog: blogData.blog.map(blog => {
             return {
-              id: post._id,
-              title: post.title,
-              content: post.content,
-              imagePath: post.imagePath,
-              creator: post.creator,
-              creatorName: post.creatorName,
-              firstSentance: post.content.split('.')[0] + '...'
+              id: blog._id,
+              title: blog.title,
+              content: blog.content,
+              imagePath: blog.imagePath,
+              creator: blog.creator,
+              creatorName: blog.creatorName,
+              firstSentance: blog.content.split('.')[0] + '...'
             };
           }),
-          maxPosts: blogData.maxPosts
+          maxBlogs: blogData.maxPosts
         };
       }))
       .subscribe((transformedData) => {
         this.blogs = transformedData.blog
-        this.blogUpdated.next({ blog: [...this.blogs], blogCount: transformedData.maxPosts });
+        this.blogUpdated.next({ blog: [...this.blogs], blogCount: transformedData.maxBlogs });
       });
   }
 
   getBlog(id: string) {
     return this.http.get<{ _id: string, title: string, content: string, imagePath: string }>(this.baseURL + '/blog/' + id);
+  }
+
+  getBlogsOfUser(userId: string) {
+
+    return this.http.get<{ blogs: any }>(this.baseURL + '/blog/by/' + userId)
+      .pipe(map((blogData) => {
+        return {
+          blog: blogData.blogs.map(blog => {
+            return {
+              id: blog._id,
+              title: blog.title,
+              content: blog.content,
+              imagePath: blog.imagePath,
+              creator: blog.creator,
+              creatorName: blog.creatorName,
+              firstSentance: blog.content.split('.')[0] + '...'
+
+            }
+          })
+        }
+      }))
   }
 
   getPostUpdateListener() {

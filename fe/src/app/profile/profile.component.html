@@ -2,86 +2,122 @@
 
 <div *ngIf="user" class="container">
   <div class="avatar">
-    <img
-      [src]="user.avatarPath"
-      height="150"
-      width="150"
-    />
-    
+    <img [src]="user.avatarPath" height="150" width="150" />
   </div>
-  <h2>{{user.name}}</h2>
-  <h4>{{user.email}}</h4>
+  <h2>{{ user.name }}</h2>
+  <h4>{{ user.email }}</h4>
 </div>
-
 
 <div class="content-container">
   <div class="center">
-    <button mat-button>My posts</button>
+    <button mat-button (click)="onChangeRenderToPosts()">My posts</button>
+
     <button mat-button disabled>|</button>
-    <button mat-button>My Blogs</button>
+
+    <button mat-button (click)="onChangeRenderToBlogs()">My Blogs</button>
+
     <mat-divider></mat-divider>
     <mat-divider></mat-divider>
     <mat-divider></mat-divider>
     <mat-divider></mat-divider>
   </div>
+
+  <div *ngIf="render == 'posts'">
     <mat-card
-    class="example-card"
-    [ngClass]="{ 'owner-card': userId == post.creator }"
-    *ngFor="let post of posts"
-  >
-    <mat-card-header>
-      <img
-        mat-card-avatar
-        class="example-header-image"
-        [src]="post.creatorAvatar"
-      />
-      <mat-card-title>{{ post.title }}</mat-card-title>
-      <mat-card-subtitle>posted by: {{ post.creatorName }}</mat-card-subtitle>
-    </mat-card-header>
-  
-    <img mat-card-image [src]="post.imagePath" [alt]="post.title" />
-  
-    <mat-card-content>
-      <mat-chip-list aria-label="Fish selection">
-        <button
-          
-          *ngFor="let chip of post.content"
-          
-        >
-          <mat-chip >{{ chip }}</mat-chip>
-        </button>
-      </mat-chip-list>
-    </mat-card-content>
-  
-    <mat-divider inset *ngIf="userId == post.creator"></mat-divider>
-  
-    <mat-card-actions
-      class="cardactions"
-      *ngIf="userId == post.creator"
-      align="start"
+      class="example-card"
+      [ngClass]="{ 'owner-card': userId == post.creator }"
+      *ngFor="let post of posts"
     >
-      <div class="actions">
-        <div class="settings">
-          <button
-            mat-icon-button
-            color="primary"
-            [routerLink]="['/edit', post.id]"
-          >
-            <mat-icon>edit</mat-icon>
+      <mat-card-header>
+        <img
+          mat-card-avatar
+          class="example-header-image"
+          [src]="post.creatorAvatar"
+        />
+        <mat-card-title>{{ post.title }}</mat-card-title>
+        <mat-card-subtitle>posted by: {{ post.creatorName }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <img mat-card-image [src]="post.imagePath" [alt]="post.title" />
+
+      <mat-card-content>
+        <mat-chip-list aria-label="Fish selection">
+          <button *ngFor="let chip of post.content">
+            <mat-chip>{{ chip }}</mat-chip>
           </button>
-  
-          <button mat-icon-button color="warn" (click)="onDelete(post.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
+        </mat-chip-list>
+      </mat-card-content>
+
+      <mat-divider inset *ngIf="userId == post.creator"></mat-divider>
+
+      <mat-card-actions
+        class="cardactions"
+        *ngIf="userId == post.creator"
+        align="start"
+      >
+        <div class="actions">
+          <div class="settings">
+            <button
+              mat-icon-button
+              color="primary"
+              [routerLink]="['/edit', post.id]"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-icon-button color="warn" (click)="onDeletePost(post.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
         </div>
-      </div>
-    </mat-card-actions>
-  
-    <!-- <mat-divider inset></mat-divider> -->
-  
-    <!-- <mat-card-subtitle>Likes: {{post.usersLiked}} | Dislikes: 2</mat-card-subtitle> -->
-  </mat-card>
- 
+      </mat-card-actions>
+
+      <!-- <mat-divider inset></mat-divider> -->
+
+      <!-- <mat-card-subtitle>Likes: {{post.usersLiked}} | Dislikes: 2</mat-card-subtitle> -->
+    </mat-card>
+  </div>
+
+  <div *ngIf="render == 'blogs'">
+    <mat-card
+      *ngFor="let blog of blogs"
+      class="example-card"
+      [ngClass]="{ 'owner-card': userId == blog.creator }"
+    >
+      <mat-card-title-group>
+        <mat-card-title>{{ blog.title }}</mat-card-title>
+        <mat-card-subtitle>Posted by: {{ blog.creatorName }}</mat-card-subtitle>
+        <img mat-card-sm-image [src]="blog.imagePath" />
+      </mat-card-title-group>
+
+      <mat-card-content>
+        {{ blog.firstSentance }}
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <div class="actions">
+          <div class="settings">
+            <button
+              mat-icon-button
+              color="primary"
+              [routerLink]="['/blog/edit', blog.id]"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-icon-button color="warn" (click)="onDeleteBlog(blog.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <button mat-button [routerLink]="['/blog/', blog.id]">
+          Read More &#9654;
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
   <p class="info-text" *ngIf="posts && posts.length < 1 && !isLoading">
     There are no posts!
   </p>
