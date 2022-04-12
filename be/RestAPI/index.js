@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/images', express.static(path.join('./RestAPI/images')));
+app.use('/blogimages', express.static(path.join('./RestAPI/blog-images')));
 app.use('/avatars', express.static(path.join('./RestAPI/avatars')));
 app.use('/mainphoto', express.static(path.join('./RestAPI/main-photo')));
 
