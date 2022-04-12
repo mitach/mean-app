@@ -19,9 +19,10 @@ export class BlogService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getBlogs() {
+  getBlogs(postsPerPage: number, currentPage: number) {
+    const queryParameters = `?pagesize=${postsPerPage}&page=${currentPage}`;
 
-    this.http.get<{ message: string, blog: any, maxPosts: number }>(this.baseURL + '/blog')
+    this.http.get<{ message: string, blog: any, maxPosts: number }>(this.baseURL + '/blog' + queryParameters)
       .pipe(map((blogData) => {
         return {
           blog: blogData.blog.map(post => {
@@ -57,8 +58,6 @@ export class BlogService {
 
     this.http.post<{ message: string, post: IBlog }>(this.baseURL + '/blog', blogData)
       .subscribe((response) => {
-        console.log(response);
-
         this.router.navigate(['/blog']);
       })
   }

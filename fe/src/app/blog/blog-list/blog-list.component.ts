@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IBlog } from '../blog.model';
 import { Subscription } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/auth/auth.service';
 import { BlogService } from '../blog.service';
 
@@ -14,13 +15,17 @@ export class BlogListComponent implements OnInit {
 
   blogs: IBlog[] = [];
 
+  totalBlogs = 0;
+  postsPerPage = 5;
+  currentPage = 1;
+  pageSizeOptions = [2, 5, 10, 20];
+
   creatorName: string;
   userId: string;
   userIsAuthenticated: boolean = false;
   private authStatusSub: Subscription;
   private blogSub: Subscription;
 
-  totalBlogs = 0;
 
 
   constructor(private blogService: BlogService, private authService: AuthService) { }
@@ -28,7 +33,7 @@ export class BlogListComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
 
-    this.blogService.getBlogs();
+    this.blogService.getBlogs(this.postsPerPage, this.currentPage);
     this.userId = this.authService.getUserId();
     this.blogSub = this.blogService.getPostUpdateListener()
       .subscribe((blogData: { blog: IBlog[], blogCount: number }) => {
@@ -45,8 +50,21 @@ export class BlogListComponent implements OnInit {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
+  }
 
-      
+  onChangedPage(pageData: PageEvent) {
+    this.isLoading = true;
+
+    this.currentPage = pageData.pageIndex + 1;
+    this.postsPerPage = pageData.pageSize;
+
+    this.blogService.getBlogs(this.postsPerPage, this.currentPage);
+
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 
 }

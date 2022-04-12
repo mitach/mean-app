@@ -33,7 +33,16 @@ const storage = multer.diskStorage({
 router.get('', (req, res) => {
     let postQuery = Blog.find();
 
+    const pageSize = Number(req.query.pagesize);
+    const currentPage = Number(req.query.page);
+
     let blogsReceived;
+
+    if (pageSize && currentPage) {
+        postQuery
+            .skip(pageSize * (currentPage - 1))
+            .limit(pageSize)
+    }
 
     postQuery
         .then(blogs => {

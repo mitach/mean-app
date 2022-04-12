@@ -1,4 +1,4 @@
-<mat-card *ngFor="let blog of blogs" class="example-card">
+<mat-card *ngFor="let blog of blogs" class="example-card" [ngClass]="{ 'owner-card': userId == blog.creator }">
 
   <mat-card-title-group>
     <mat-card-title>{{blog.title}}</mat-card-title>
@@ -14,7 +14,31 @@
   </mat-card-content>
 
   <mat-card-actions align="end">
+    <div class="actions">
+        <div class="settings">
+          <button
+            mat-icon-button
+            color="primary"
+            
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+  
+          <button mat-icon-button color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div> 
+
       <button mat-button>Read More &#9654;</button>
   </mat-card-actions>
 
 </mat-card>
+
+<mat-paginator
+  [length]="totalBlogs"
+  [pageSize]="postsPerPage"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)"
+  *ngIf="blogs.length > 0"
+></mat-paginator>
