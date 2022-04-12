@@ -4,6 +4,7 @@ This is a project defense for SoftUni degree
 // -- Should update the readme later
 
 // How to start the project
+```
   -- open the project via IDE
   -- open two terminals
         1st terminal -> cd ./fe
@@ -12,5 +13,4 @@ This is a project defense for SoftUni degree
         2nd terminal -> cd ./be
                         npm i
                         npm start
-
-
+```
