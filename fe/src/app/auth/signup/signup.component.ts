@@ -28,9 +28,10 @@ export class SignupComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authStatusSub = this.authService.getAuthStatusListener()
       .subscribe(authStatus => {
+        // this.isLoading = authStatus;
         this.isLoading = false;
       });
-      
+
     this.form = new FormGroup({
       'name': new FormControl(null, {
         validators: [Validators.required, Validators.minLength(2)]

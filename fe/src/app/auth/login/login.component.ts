@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   private authStatusSub: Subscription;
 
-
   constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
@@ -22,7 +21,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(authStatus => {
         this.isLoading = false;
       });
-    
   }
 
   onLogin(form: NgForm) {

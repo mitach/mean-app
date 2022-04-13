@@ -31,13 +31,12 @@ export class AuthService {
     authData.append('password', password);
     authData.append('image', image, email);
 
-    return this.http.post(this.baseURL + '/signup', authData)
+    this.http.post(this.baseURL + '/signup', authData)
       .subscribe(() => {
         this.login(email, password);
         this.router.navigate(['/']);
       }, error => {
         this.authStatusListener.next(false);
-        alert(error)
       });
   }
 
