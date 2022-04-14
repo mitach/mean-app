@@ -12,7 +12,7 @@
       <p>{{blog.content}}</p>
   </mat-card-content>
 
-  <mat-card-actions align="end">
+  <mat-card-actions align="end" *ngIf="userIsAuthenticated && userId == blog.creator">
     <div class="actions">
       <div class="settings">
         <button

@@ -15,7 +15,7 @@
 
   <mat-card-actions align="end">
     <div class="actions">
-      <div class="settings">
+    <div class="settings" *ngIf="userIsAuthenticated && userId == blog.creator">
         <button
           mat-icon-button
           color="primary"

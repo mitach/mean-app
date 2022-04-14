@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { PostService } from '../post.service';
 
 import { mimeType } from './mime-type.validator';
@@ -9,15 +11,23 @@ import { mimeType } from './mime-type.validator';
   templateUrl: './post-create.component.html',
   styleUrls: ['./post-create.component.css']
 })
-export class PostCreateComponent implements OnInit {
+export class PostCreateComponent implements OnInit, OnDestroy {
+
+  isLoading: boolean = false;
 
   form: FormGroup;
 
   imagePreview: string;
 
-  constructor(public postService: PostService) { }
+  private authStatusSub: Subscription;
+
+  constructor(public postService: PostService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authStatusSub = this.authService.getAuthStatusListener()
+      .subscribe(authStatus => {
+        this.isLoading = false;
+      });
     this.form = new FormGroup({
       'title': new FormControl(null, {
         validators: [Validators.required, Validators.minLength(2)]
@@ -47,5 +57,9 @@ export class PostCreateComponent implements OnInit {
       this.imagePreview = reader.result as string;
     }
     reader.readAsDataURL(file);
+  }
+
+  ngOnDestroy(): void {
+    this.authStatusSub.unsubscribe();
   }
 }

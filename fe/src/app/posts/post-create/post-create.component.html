@@ -1,5 +1,6 @@
 <mat-card>
   <!-- spinner while loading -->
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
 
   <form [formGroup]="form" (submit)="onSavePost()">
     <mat-form-field appearance="fill">

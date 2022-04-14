@@ -46,7 +46,7 @@ export class BlogService {
   }
 
   getBlog(id: string) {
-    return this.http.get<{ _id: string, title: string, content: string, imagePath: string }>(this.baseURL + '/blog/' + id);
+    return this.http.get<{ _id: string, title: string, content: string, imagePath: string, creator: string }>(this.baseURL + '/blog/' + id);
   }
 
   getBlogsOfUser(userId: string) {
