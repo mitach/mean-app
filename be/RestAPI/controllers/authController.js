@@ -77,7 +77,7 @@ router.post('/signup', multer({ storage: storage }).single('image'), (req, res) 
                 })
                 .catch(err => {
                     res.status(500).json({
-                        error: err
+                        message: 'Invalid authentication credentials!'
                     });
                 });
         });
@@ -117,8 +117,10 @@ router.post('/login', (req, res) => {
             });
         })
         .catch(err => {
-            console.log(err);
-        })
-})
+            return res.status(401).json({
+                message: 'Invalid authentication credentials!'
+            });
+        });
+});
 
 module.exports = router;

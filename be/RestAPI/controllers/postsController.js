@@ -41,7 +41,7 @@ router.get('', (req, res) => {
         postQuery = Post.find();
     }
 
-    
+
 
     const pageSize = Number(req.query.pagesize);
     const currentPage = Number(req.query.page);
@@ -66,6 +66,11 @@ router.get('', (req, res) => {
                 maxPosts: count
             })
         })
+        .catch(error => {
+            res.status(500).json({
+                message: 'Fetching posts failed! '
+            })
+        })
 });
 
 router.get('/:id', (req, res) => {
@@ -79,21 +84,31 @@ router.get('/:id', (req, res) => {
                 })
             }
         })
+        .catch(error => {
+            res.status(500).json({
+                message: 'Fetching post failed! '
+            })
+        });
 });
 
 router.get('/by/:userId', (req, res) => {
-    Post.find( { creator: req.params.userId})
-    .then(posts => {
-        if (posts) {
-            res.status(200).json({
-                posts: posts
+    Post.find({ creator: req.params.userId })
+        .then(posts => {
+            if (posts) {
+                res.status(200).json({
+                    posts: posts
+                })
+            } else {
+                res.status(404).json({
+                    message: 'Post not found!'
+                })
+            }
+        })
+        .catch(error => {
+            res.status(500).json({
+                message: 'Fetching post failed! '
             })
-        } else {
-            res.status(404).json({
-                message: 'Post not found!'
-            })
-        }
-    })
+        });
 })
 
 router.post('', checkAuth, multer({ storage: storage }).single('image'), async (req, res) => {
@@ -117,7 +132,12 @@ router.post('', checkAuth, multer({ storage: storage }).single('image'), async (
                 message: 'Post added successfully!',
                 createdPost
             });
-        });
+        })
+        .catch(error => {
+            res.status(500).json({
+                message: 'Creating post failed!'
+            })
+        })
 });
 
 router.put('/edit/:id', checkAuth, multer({ storage: storage }).single('image'), (req, res) => {
@@ -148,6 +168,11 @@ router.put('/edit/:id', checkAuth, multer({ storage: storage }).single('image'),
                 });
             }
         })
+        .catch(error => {
+            res.status(500).json({
+                message: 'Couldn\'t update post!'
+            })
+        });
 });
 
 router.delete('/:id', checkAuth, (req, res) => {
@@ -162,7 +187,12 @@ router.delete('/:id', checkAuth, (req, res) => {
                     message: 'Not Authorized!'
                 });
             }
-        });
+        })
+        .catch(error => {
+            res.status(500).json({
+                message: 'Deleting posts failed! '
+            })
+        }) 
 });
 
 module.exports = router;

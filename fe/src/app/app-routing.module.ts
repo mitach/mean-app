@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'posts', component: PostListComponent },
   { path: 'posts/create', component: PostCreateComponent, canActivate: [AuthGuard] },
-  { path: 'posts/edit/:postId', component: PostEditComponent, canActivate: [AuthGuard] },
+  { path: 'post/edit/:postId', component: PostEditComponent, canActivate: [AuthGuard] },
   { path: 'blog', component: BlogListComponent},
   { path: 'blog/create', component: BlogCreateComponent, canActivate: [AuthGuard] },
   { path: 'blog/edit/:blogId', component: BlogEditComponent, canActivate: [AuthGuard] },

@@ -61,7 +61,7 @@
 
   <mat-card-actions
     class="cardactions"
-    *ngIf="userId == post.creator"
+    *ngIf="userIsAuthenticated && userId == post.creator"
     align="start"
   >
     <div class="actions">
