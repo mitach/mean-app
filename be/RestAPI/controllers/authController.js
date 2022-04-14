@@ -76,12 +76,65 @@ router.post('/signup', multer({ storage: storage }).single('image'), (req, res) 
                     });
                 })
                 .catch(err => {
+                    console.log(err.errors);
+                    if (err.errors.name) {
+                        return res.status(500).json({
+                            message: 'Please enter your name!'
+                        });
+                    } else if (err.errors.email) {
+                        return res.status(500).json({
+                            message: 'Email already taken!'
+                        });
+                    }
                     res.status(500).json({
-                        message: 'Email already taken!'
+                        message: 'Invalid credentials!' + err.errors.kind + ' - ' + err.errors.path
                     });
                 });
         });
 });
+
+// router.post('/login', (req, res) => {
+//     let userReceived;
+
+//     User.findOne({ email: req.body.email })
+//         .then(user => {
+//             console.log(user)
+//             if (!user) {
+//                 return res.status(401).json({
+//                     message: 'Invalid authentication credentials!'
+//                 });
+//             }
+
+//             userReceived = user;
+
+//             return bcrypt.compare(req.body.password, user.password);
+//         })
+//         .then(result => {
+//             console.log('result >>', result);
+
+//             if (!result) {
+//                 return res.status(401).json({
+//                     message: 'Auth failed!'
+//                 });
+//             }
+
+//             const token = jwt.sign(
+//                 { name: userReceived.name, email: userReceived.email, userId: userReceived._id },
+//                 JWT_SECRET_KEY,
+//                 { expiresIn: '1h' }
+//             );
+//             res.status(200).json({
+//                 token: token,
+//                 expiresIn: 3600,
+//                 userId: userReceived._id
+//             });
+//         })
+//         .catch(err => {
+//             return res.status(401).json({
+//                 message: 'Invalid authentication credentials!'
+//             });
+//         });
+// });
 
 router.post('/login', (req, res) => {
     let userReceived;
@@ -96,25 +149,26 @@ router.post('/login', (req, res) => {
 
             userReceived = user;
 
-            return bcrypt.compare(req.body.password, user.password);
-        })
-        .then(result => {
-            if (!result) {
-                return res.status(401).json({
-                    message: 'Auth failed!'
-                });
-            }
+            bcrypt.compare(req.body.password, user.password)
+                .then(result => {
 
-            const token = jwt.sign(
-                { name: userReceived.name, email: userReceived.email, userId: userReceived._id },
-                JWT_SECRET_KEY,
-                { expiresIn: '1h' }
-            );
-            res.status(200).json({
-                token: token,
-                expiresIn: 3600,
-                userId: userReceived._id
-            });
+                    if (!result) {
+                        return res.status(401).json({
+                            message: 'Auth failed!'
+                        });
+                    }
+
+                    const token = jwt.sign(
+                        { name: userReceived.name, email: userReceived.email, userId: userReceived._id },
+                        JWT_SECRET_KEY,
+                        { expiresIn: '1h' }
+                    );
+                    res.status(200).json({
+                        token: token,
+                        expiresIn: 3600,
+                        userId: userReceived._id
+                    });
+                })
         })
         .catch(err => {
             return res.status(401).json({

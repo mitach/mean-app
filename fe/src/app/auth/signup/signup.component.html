@@ -29,7 +29,7 @@
             placeholder="Full name"
             required
             />
-            <mat-error *ngIf="form.get('name').invalid">Please enter a valid name.</mat-error>
+            <mat-error *ngIf="form.get('name').invalid">Minimum length: 3 chars</mat-error>
         </mat-form-field>
 
         <mat-form-field>
@@ -38,9 +38,10 @@
             formControlName="email"
             type="email"
             placeholder="E-mail"
+            pattern="^([a-zA-Z0-9]+)@([a-zA-Z]+)\.([a-zA-Z]+)$"
             required
             email/>
-            <mat-error *ngIf="form.get('email').invalid">Please enter a valid email.</mat-error>
+            <mat-error *ngIf="form.get('email').invalid">Please enter a valid email. e.g. test@test.com</mat-error>
         </mat-form-field>
     
         <mat-form-field>
@@ -50,7 +51,7 @@
             matInput
             placeholder="Password"
             required>
-            <mat-error *ngIf="form.get('password').invalid">Please enter a valid password.</mat-error>
+            <mat-error *ngIf="form.get('password').invalid">Minimum length: 6 chars</mat-error>
         </mat-form-field>
     
         <button 

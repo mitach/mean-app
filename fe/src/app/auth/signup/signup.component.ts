@@ -32,10 +32,10 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     this.form = new FormGroup({
       'name': new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(2)]
+        validators: [Validators.required, Validators.minLength(3)]
       }),
       'email': new FormControl(null, { validators: [Validators.required] }),
-      'password': new FormControl(null, { validators: [Validators.required] }),
+      'password': new FormControl(null, { validators: [Validators.required, Validators.minLength(6)] }),
       'image': new FormControl(null, { validators: [Validators.required], asyncValidators: [mimeType] })
     })
   }

@@ -168,7 +168,7 @@ router.put('/edit/:id', checkAuth, multer({ storage: storage }).single('image'),
                 });
             } else if (result.matchedCount == 1) {
                 res.status(401).json({
-                    message: 'Edit not made, Everything is the same!'
+                    message: 'Everything is the same!'
                 });
             }
         })
