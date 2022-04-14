@@ -41,3 +41,7 @@
   (page)="onChangedPage($event)"
   *ngIf="blogs.length > 0"
 ></mat-paginator>
+
+<p class="info-text" *ngIf="blogs.length <= 0 && !isLoading">
+  There are no blogs!
+</p>

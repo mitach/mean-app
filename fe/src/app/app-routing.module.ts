@@ -7,6 +7,7 @@ import { PostListComponent } from './posts/post-list/post-list.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
+import { IsAuthGuard } from './auth/isAuth.guard';
 import { MainComponent } from './core/main/main.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
@@ -17,8 +18,8 @@ import { BlogPreviewComponent } from './blog/blog-preview/blog-preview.component
 
 const routes: Routes = [
   { path: '', component: MainComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
+  { path: 'login', component: LoginComponent, canActivate: [IsAuthGuard] },
+  { path: 'signup', component: SignupComponent, canActivate: [IsAuthGuard] },
   { path: 'posts', component: PostListComponent },
   { path: 'posts/create', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'post/edit/:postId', component: PostEditComponent, canActivate: [AuthGuard] },

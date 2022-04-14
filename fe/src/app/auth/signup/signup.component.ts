@@ -44,7 +44,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   onSignup() {
-    console.log(this.form.value.image)
     if (this.form.value.image == null) {
       this.err = 'Image not selected';
       return;
