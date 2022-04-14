@@ -12,20 +12,20 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
-
+import { MatDialogModule } from '@angular/material/dialog'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PostEditComponent } from './posts/post-edit/post-edit.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { AuthInterceptor } from './auth/auth-interceptor';
 import { MainComponent } from './core/main/main.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
@@ -33,6 +33,10 @@ import { BlogListComponent } from './blog/blog-list/blog-list.component';
 import { BlogCreateComponent } from './blog/blog-create/blog-create.component';
 import { BlogEditComponent } from './blog/blog-edit/blog-edit.component';
 import { BlogPreviewComponent } from './blog/blog-preview/blog-preview.component';
+import { ErrorComponent } from './error/error.component';
+
+import { AuthInterceptor } from './auth/auth-interceptor';
+import { ErrorInterceptor } from './error-interceptor';
 
 @NgModule({
   declarations: [
@@ -51,7 +55,7 @@ import { BlogPreviewComponent } from './blog/blog-preview/blog-preview.component
     BlogCreateComponent,
     BlogEditComponent,
     BlogPreviewComponent,
-
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -69,9 +73,14 @@ import { BlogPreviewComponent } from './blog/blog-preview/blog-preview.component
     MatDividerModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatChipsModule
+    MatChipsModule,
+    MatDialogModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent]
 })
 export class AppModule { }
