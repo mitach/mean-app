@@ -77,7 +77,7 @@ router.post('/signup', multer({ storage: storage }).single('image'), (req, res) 
                 })
                 .catch(err => {
                     res.status(500).json({
-                        message: 'Invalid authentication credentials!'
+                        message: 'Email already taken!'
                     });
                 });
         });
@@ -90,7 +90,7 @@ router.post('/login', (req, res) => {
         .then(user => {
             if (!user) {
                 return res.status(401).json({
-                    message: 'Auth failed!'
+                    message: 'Invalid authentication credentials!'
                 });
             }
 

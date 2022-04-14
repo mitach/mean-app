@@ -162,9 +162,13 @@ router.put('/edit/:id', checkAuth, multer({ storage: storage }).single('image'),
                 res.status(200).json({
                     message: 'Update successful!'
                 });
-            } else {
+            } else if (result.matchedCount == 0) {
                 res.status(401).json({
                     message: 'Not Authorized!'
+                });
+            } else if (result.matchedCount == 1) {
+                res.status(401).json({
+                    message: 'Edit not made, Everything is the same!'
                 });
             }
         })

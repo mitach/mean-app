@@ -2,9 +2,7 @@
     <mat-spinner *ngIf="isLoading"></mat-spinner>
 
 
-    <div class="error">
-      <p>{{error}}</p>
-    </div>
+
     
 
     <form [formGroup]="form" (submit)="onSignup()" *ngIf="!isLoading">

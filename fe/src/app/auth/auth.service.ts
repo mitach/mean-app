@@ -74,7 +74,7 @@ export class AuthService {
   }
 
   handleError() {
-    return new Error("Eba si maikata");
+    return new Error("There is an error");
   }
 
   logout() {

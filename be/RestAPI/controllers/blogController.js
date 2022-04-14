@@ -56,6 +56,11 @@ router.get('', (req, res) => {
                 maxPosts: count
             })
         })
+        .catch(error => {
+            res.status(500).json({
+                message: 'Fetching blogs failed! '
+            })
+        })
 });
 
 router.get('/:id', (req, res) => {
@@ -68,6 +73,11 @@ router.get('/:id', (req, res) => {
                     message: 'Blog not found!'
                 })
             }
+        })
+        .catch(error => {
+            res.status(500).json({
+                message: 'Fetching blog failed! '
+            })
         })
 });
 
@@ -83,6 +93,11 @@ router.get('/by/:userId', (req, res) => {
                 message: 'Blogs not found!'
             })
         }
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: 'Fetching blog failed! '
+        })
     })
 });
 
@@ -105,7 +120,12 @@ router.post('', checkAuth, multer({ storage: storage }).single('image'), async (
                 message: 'Blog added successfully!',
                 createdBlog
             });
-        });
+        })
+        .catch(error => {
+            res.status(500).json({
+                message: 'Creating blogs failed! '
+            })
+        })
 });
 
 router.put('/edit/:id', checkAuth, multer({ storage: storage }).single('image'), (req, res) => {
@@ -130,11 +150,20 @@ router.put('/edit/:id', checkAuth, multer({ storage: storage }).single('image'),
                 res.status(200).json({
                     message: 'Update successful!'
                 });
-            } else {
+            } else if (result.matchedCount == 0) {
                 res.status(401).json({
                     message: 'Not Authorized!'
                 });
+            } else if (result.matchedCount == 1) {
+                res.status(401).json({
+                    message: 'Edit not made, Everything is the same!'
+                });
             }
+        })
+        .catch(error => {
+            res.status(500).json({
+                message: 'Couldn\'t update blog! '
+            })
         })
 });
 
@@ -150,7 +179,12 @@ router.delete('/:id', checkAuth, (req, res) => {
                     message: 'Not Authorized!'
                 });
             }
-        });
+        })
+        .catch(error => {
+            res.status(500).json({
+                message: 'Deleting blog failed!'
+            })
+        })
 });
 
 module.exports = router;

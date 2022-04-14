@@ -76,6 +76,9 @@
 
       <!-- <mat-card-subtitle>Likes: {{post.usersLiked}} | Dislikes: 2</mat-card-subtitle> -->
     </mat-card>
+    <p class="info-text" *ngIf="posts && posts.length < 1 && !isLoading">
+      There are no posts!
+    </p>
   </div>
 
   <div *ngIf="render == 'blogs'">
@@ -116,9 +119,10 @@
         </button>
       </mat-card-actions>
     </mat-card>
+    <p class="info-text" *ngIf="blogs && blogs.length < 1 && !isLoading">
+      There are no blogs!
+    </p>
   </div>
 
-  <p class="info-text" *ngIf="blogs && blogs.length < 1 && !isLoading">
-    There are no blogs!
-  </p>
+  
 </div>

@@ -19,8 +19,6 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   isLoading: boolean = false;
 
-  error = 'Invalid username'
-
   private authStatusSub: Subscription;
 
   constructor(public authService: AuthService) { }
