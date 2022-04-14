@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
         if (isValid) {
             error = null;
         }
-        cb(error, 'RestAPI/avatars');
+        cb(error, 'RestAPI/images/avatars');
     },
     filename: (req, file, cb) => {
         const name = file.originalname.toLocaleLowerCase().split(' ').join('-');
@@ -76,7 +76,6 @@ router.post('/signup', multer({ storage: storage }).single('image'), (req, res) 
                     });
                 })
                 .catch(err => {
-                    console.log(err.errors);
                     if (err.errors.name) {
                         return res.status(500).json({
                             message: 'Please enter your name!'

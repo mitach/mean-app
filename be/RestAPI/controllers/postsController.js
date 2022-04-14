@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
         if (isValid) {
             error = null;
         }
-        cb(error, 'RestAPI/images');
+        cb(error, 'RestAPI/images/post-images');
     },
     filename: (req, file, cb) => {
         const name = file.originalname.toLocaleLowerCase().split(' ').join('-');
@@ -120,7 +120,7 @@ router.post('', checkAuth, multer({ storage: storage }).single('image'), async (
     const post = new Post({
         title: req.body.title,
         content: req.body.content,
-        imagePath: url + '/images/' + req.file.filename,
+        imagePath: url + '/postimages/' + req.file.filename,
         creator: req.userData.userId,
         creatorName: creator.name,
         creatorAvatar: creatorAvatar.avatarPath

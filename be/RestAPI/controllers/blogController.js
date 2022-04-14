@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
         if (isValid) {
             error = null;
         }
-        cb(error, 'RestAPI/blog-images');
+        cb(error, 'RestAPI/images/blog-images');
     },
     filename: (req, file, cb) => {
         const name = file.originalname.toLocaleLowerCase().split(' ').join('-');

@@ -19,6 +19,8 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   isLoading: boolean = false;
 
+  err: string;
+
   private authStatusSub: Subscription;
 
   constructor(public authService: AuthService) { }
@@ -36,14 +38,33 @@ export class SignupComponent implements OnInit, OnDestroy {
       }),
       'email': new FormControl(null, { validators: [Validators.required] }),
       'password': new FormControl(null, { validators: [Validators.required, Validators.minLength(6)] }),
+      'repass': new FormControl(null, { validators: [Validators.required, Validators.minLength(6)] }),
       'image': new FormControl(null, { validators: [Validators.required], asyncValidators: [mimeType] })
     })
   }
 
   onSignup() {
+    console.log(this.form.value.image)
+    if (this.form.value.image == null) {
+      this.err = 'Image not selected';
+      return;
+    } else {
+      this.err = '';
+    }
+
+    if (this.form.value.password != this.form.value.repass) {
+      this.err = 'Password missmatch!';
+      return;
+    } else {
+      this.err = '';
+    }
+    
     if (this.form.invalid) {
       return;
     }
+
+
+
 
     this.isLoading = true;
 

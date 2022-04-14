@@ -53,7 +53,19 @@
             required>
             <mat-error *ngIf="form.get('password').invalid">Minimum length: 6 chars</mat-error>
         </mat-form-field>
-    
+
+        <mat-form-field>
+          <input 
+          type="password"
+          formControlName="repass"
+          matInput
+          placeholder="Re-Password"
+          required>
+          <mat-error *ngIf="form.get('repass').invalid">Minimum length: 6 chars</mat-error>
+      </mat-form-field>
+
+      <p *ngIf="err" style="color: red;">{{err}}</p>
+
         <button 
         mat-raised-button
         color="accent"
