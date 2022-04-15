@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
-import { catchError } from 'rxjs/operators'
-
+import { catchError } from 'rxjs/operators';
 import { AuthData } from './auth-data.model';
 
 @Injectable({
@@ -23,7 +22,6 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   createUser(name: string, email: string, password: string, image: File) {
-    // const authData: AuthData = { name: name, email: email, password: password };
 
     const authData = new FormData();
     authData.append('name', name);
@@ -87,26 +85,6 @@ export class AuthService {
     this.router.navigate(['']);
   }
 
-  // TODO: Delete
-  // autoAuthUser() {
-  //   const authInformation = this.getAuthData();
-
-  //   if (!authInformation) {
-  //     return;
-  //   }
-
-  //   const now = new Date();
-  //   const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
-
-  //   if (expiresIn > 0) {
-  //     this.token = authInformation.token;
-  //     this.isAuthenticated = true;
-  //     this.userId = authInformation.userId;
-  //     this.setAuthTimer(expiresIn / 1000);
-  //     this.authStatusListener.next(true);
-  //   }
-  // }
-
   getUser(userId: string) {
     return this.http.get(this.baseURL + '/' + userId);
   }
@@ -125,7 +103,7 @@ export class AuthService {
     const userId = localStorage.getItem('userId');
 
     if (!token || !expirationDate) {
-      return null;
+      return false;
     }
 
     const now = new Date();
@@ -162,21 +140,4 @@ export class AuthService {
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
   }
-
-  // TODO: Delete
-  // private getAuthData() {
-  //   const token = localStorage.getItem('token');
-  //   const expirationDate = localStorage.getItem('expiration');
-  //   const userId = localStorage.getItem('userId');
-
-  //   if (!token || !expirationDate) {
-  //     return null;
-  //   }
-
-  //   return {
-  //     token: token,
-  //     expirationDate: new Date(expirationDate),
-  //     userId: userId,
-  //   }
-  // }
 }

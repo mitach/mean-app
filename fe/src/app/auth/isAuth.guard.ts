@@ -10,13 +10,13 @@ export class IsAuthGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        const isAuth = this.authService.getIsAuth();
+        const userId = this.authService.getUserId();
 
-        if (isAuth) {
-            this.router.navigate(['/']);
+        if (userId) {
+            return this.router.navigate(['/']);
         }
 
-        return isAuth;
+        return true;
     }
 
 }

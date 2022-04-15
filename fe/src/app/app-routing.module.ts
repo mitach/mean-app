@@ -12,23 +12,13 @@ import { MainComponent } from './core/main/main.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 
-// import { BlogListComponent } from './blog/blog-list/blog-list.component';
-// import { BlogCreateComponent } from './blog/blog-create/blog-create.component';
-// import { BlogEditComponent } from './blog/blog-edit/blog-edit.component';
-// import { BlogPreviewComponent } from './blog/blog-preview/blog-preview.component';
-
 const routes: Routes = [
   { path: '', component: MainComponent },
-  {path: 'auth', loadChildren: () => import('./auth/auth.module').then(x => x.AuthModule)},
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(x => x.AuthModule) },
   { path: 'posts', component: PostListComponent },
   { path: 'posts/create', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'post/edit/:postId', component: PostEditComponent, canActivate: [AuthGuard] },
-  {path: 'blog', loadChildren: () => import('./blog/blogs.module').then(x => x.BlogsModule)},
-  // { path: 'blog', component: BlogListComponent},
-  // { path: 'blog/create', component: BlogCreateComponent, canActivate: [AuthGuard] },
-  // { path: 'blog/edit/:blogId', component: BlogEditComponent, canActivate: [AuthGuard] },
-  // { path: 'blog/:blogId', component: BlogPreviewComponent, canActivate: [AuthGuard] },
-
+  { path: 'blog', loadChildren: () => import('./blog/blogs.module').then(x => x.BlogsModule) },
   { path: 'profile/:userId', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: '**', pathMatch: 'full', component: NotFoundComponent }
 ];
