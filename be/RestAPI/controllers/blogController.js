@@ -1,34 +1,11 @@
 const express = require('express');
-const multer = require('multer');
 
 const router = express.Router();
 
 const Blog = require('../models/Blog');
 const checkAuth = require('../middlewares/check-auth');
+const blogImage = require('../middlewares/blog-image');
 const User = require('../models/User');
-
-const MIME_TYPE_MAP = {
-    'image/png': 'png',
-    'image/jpeg': 'jpg',
-    'image/jpg': 'jpg'
-}
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const isValid = MIME_TYPE_MAP[file.mimetype];
-        let error = new Error('Invalid mime type');
-
-        if (isValid) {
-            error = null;
-        }
-        cb(error, 'RestAPI/images/blog-images');
-    },
-    filename: (req, file, cb) => {
-        const name = file.originalname.toLocaleLowerCase().split(' ').join('-');
-        const ext = MIME_TYPE_MAP[file.mimetype];
-        cb(null, name + '-' + Date.now() + '.' + ext);
-    }
-});
 
 router.get('', (req, res) => {
     let postQuery = Blog.find();
@@ -101,7 +78,7 @@ router.get('/by/:userId', (req, res) => {
     })
 });
 
-router.post('', checkAuth, multer({ storage: storage }).single('image'), async (req, res) => {
+router.post('', checkAuth, blogImage, async (req, res) => {
     const url = req.protocol + '://' + req.get('host');
 
     let creator = await User.findById(req.userData.userId);
@@ -128,7 +105,7 @@ router.post('', checkAuth, multer({ storage: storage }).single('image'), async (
         })
 });
 
-router.put('/edit/:id', checkAuth, multer({ storage: storage }).single('image'), (req, res) => {
+router.put('/edit/:id', checkAuth, blogImage, (req, res) => {
     let imagePath = req.body.imagePath;
 
     if (req.file) {

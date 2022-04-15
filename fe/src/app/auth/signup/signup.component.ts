@@ -71,6 +71,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   onImagePicked(event: Event) {
+    this.err = '';
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
     this.form.get('image').updateValueAndValidity();
