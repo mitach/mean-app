@@ -14,6 +14,7 @@ export class BlogCreateComponent implements OnInit {
   form: FormGroup;
   
   imagePreview;
+  err;
   
   constructor(public blogService: BlogService) { }
 
@@ -28,6 +29,12 @@ export class BlogCreateComponent implements OnInit {
   }
 
   onSaveBlog() {
+    if (this.form.value.image == null) {
+      this.err = 'Image not selected';
+      return;
+    } else {
+      this.err = '';
+    }
     if (this.form.invalid) {
       return;
     }
@@ -36,6 +43,8 @@ export class BlogCreateComponent implements OnInit {
   }
 
   onImagePicked(event: Event) {
+    this.err = '';
+
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
     this.form.get('image').updateValueAndValidity();

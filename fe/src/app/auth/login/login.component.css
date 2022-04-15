@@ -12,3 +12,7 @@ mat-form-field {
 mat-spinner {
     margin: auto;
 }
+
+.info-text {
+    margin-top: 10px;
+}

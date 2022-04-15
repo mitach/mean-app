@@ -19,6 +19,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 
   imagePreview: string;
 
+  err;
+
   private authStatusSub: Subscription;
 
   constructor(public postService: PostService, private authService: AuthService) { }
@@ -38,6 +40,12 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   }
 
   onSavePost() {
+    if (this.form.value.image == null) {
+      this.err = 'Image not selected';
+      return;
+    } else {
+      this.err = '';
+    }
     if (this.form.invalid) {
       return;
     }
@@ -47,6 +55,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   }
 
   onImagePicked(event: Event) {
+    this.err = '';
+
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
     this.form.get('image').updateValueAndValidity();

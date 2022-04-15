@@ -33,6 +33,8 @@
       >
     </mat-form-field>
 
+    <p *ngIf="err" style="color: red">{{ err }}</p>
+    
     <button mat-raised-button color="accent" type="submit">Save Post</button>
   </form>
 </mat-card>

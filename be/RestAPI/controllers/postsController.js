@@ -145,7 +145,7 @@ router.put('/edit/:id', checkAuth, multer({ storage: storage }).single('image'),
 
     if (req.file) {
         const url = req.protocol + '://' + req.get('host');
-        imagePath = url + '/images/' + req.file.filename
+        imagePath = url + '/postimages/' + req.file.filename
     }
 
     const post = new Post({

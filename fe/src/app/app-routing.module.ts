@@ -18,8 +18,8 @@ import { BlogPreviewComponent } from './blog/blog-preview/blog-preview.component
 
 const routes: Routes = [
   { path: '', component: MainComponent },
-  { path: 'login', component: LoginComponent, canActivate: [IsAuthGuard] },
-  { path: 'signup', component: SignupComponent, canActivate: [IsAuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'posts', component: PostListComponent },
   { path: 'posts/create', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'post/edit/:postId', component: PostEditComponent, canActivate: [AuthGuard] },
@@ -35,4 +35,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
