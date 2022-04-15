@@ -9,6 +9,7 @@ import { BlogEditComponent } from './blog-edit/blog-edit.component';
 import { BlogPreviewComponent } from './blog-preview/blog-preview.component';
 
 import { AngularMaterialModule } from "../angular-material.module";
+import { BlogsRoutingModule } from "./blogs-routing.module";
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { AngularMaterialModule } from "../angular-material.module";
         CommonModule,
         ReactiveFormsModule,
         AngularMaterialModule,
-        RouterModule
+        RouterModule,
+        BlogsRoutingModule
     ]
 })
 export class BlogsModule {}

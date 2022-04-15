@@ -133,7 +133,6 @@ router.put('/edit/:id', checkAuth, postImage, (req, res) => {
 
     Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
         .then(result => {
-            console.log(result);
 
             if (result.modifiedCount > 0) {
                 res.status(200).json({
@@ -148,8 +147,6 @@ router.put('/edit/:id', checkAuth, postImage, (req, res) => {
                     message: 'Everything is the same!'
                 });
             }
-
-            
         })
         .catch(error => {
             res.status(500).json({

@@ -123,6 +123,7 @@ router.put('/edit/:id', checkAuth, blogImage, (req, res) => {
 
     Blog.updateOne({ _id: req.params.id, creator: req.userData.userId }, blog)
         .then(result => {
+            
             if (result.modifiedCount > 0) {
                 res.status(200).json({
                     message: 'Update successful!'
@@ -132,8 +133,8 @@ router.put('/edit/:id', checkAuth, blogImage, (req, res) => {
                     message: 'Not Authorized!'
                 });
             } else if (result.matchedCount == 1) {
-                res.status(401).json({
-                    message: 'Edit not made, Everything is the same!'
+                res.status(200).json({
+                    message: 'Everything is the same!'
                 });
             }
         })
