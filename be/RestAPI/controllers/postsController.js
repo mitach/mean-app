@@ -170,7 +170,7 @@ router.delete('/:id', checkAuth, (req, res) => {
         })
         .catch(error => {
             res.status(500).json({
-                message: 'Deleting posts failed! '
+                message: 'Deleting posts failed!'
             })
         }) 
 });

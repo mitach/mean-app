@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Input, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { PostCreateComponent } from './posts/post-create/post-create.component';
@@ -30,3 +30,4 @@ const routes: Routes = [
 })
 
 export class AppRoutingModule { }
+
